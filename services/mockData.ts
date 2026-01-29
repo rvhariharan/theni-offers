@@ -1,3 +1,4 @@
+import { title } from 'process';
 import { Shop, Offer, Job, Ad } from '../types';
 
 export const AREAS = ['Theni Main', 'Allinagaram', 'Periyakulam', 'Bodinayakanur', 'Cumbum', 'Chinnamanur', 'Andipatti', 'Thenkarai'];
@@ -12,7 +13,8 @@ export const CATEGORY_HIERARCHY: Record<string, string[]> = {
   'Health': ['Pharmacy', 'Hospital', 'Gym', 'Clinic', 'Yoga'],
   'Education': ['School', 'College', 'Coaching', 'Training Institute'],
   'Jewellery': ['Gold', 'Silver', 'Diamond', 'Imitation'],
-  'Real Estate': ['Residential', 'Commercial', 'Plots', 'Rentals']
+  'Real Estate': ['Residential', 'Commercial', 'Plots', 'Rentals'],
+  'transportation': ['Taxi', 'Bus', 'JCB', 'Car Rental', 'lorry', 'crane', 'mini lorry']
 };
 
 export const CATEGORIES = Object.keys(CATEGORY_HIERARCHY);
@@ -33,11 +35,11 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Theni+Mobiles&background=0f766e&color=fff&size=256',
     rating: 4.8,
     socialMedia: {
-        facebook: 'https://facebook.com',
-        instagram: 'https://instagram.com',
-        whatsapp: '919876543210',
-        linkedin: 'https://linkedin.com',
-        website: 'https://example.com'
+      facebook: 'https://facebook.com',
+      instagram: 'https://instagram.com',
+      whatsapp: '919876543210',
+      linkedin: 'https://linkedin.com',
+      website: 'https://example.com'
     }
   },
   {
@@ -55,8 +57,8 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Saravana+Textiles&background=e11d48&color=fff&size=256',
     rating: 4.5,
     socialMedia: {
-        instagram: 'https://instagram.com',
-        whatsapp: '919876543211'
+      instagram: 'https://instagram.com',
+      whatsapp: '919876543211'
     }
   },
   {
@@ -74,9 +76,9 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Spice+Valley&background=f59e0b&color=fff&size=256',
     rating: 4.2,
     socialMedia: {
-        facebook: 'https://facebook.com',
-        whatsapp: '919876543212',
-        website: 'https://example.com'
+      facebook: 'https://facebook.com',
+      whatsapp: '919876543212',
+      website: 'https://example.com'
     }
   },
   {
@@ -109,8 +111,8 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Auto+Care&background=6366f1&color=fff&size=256',
     rating: 4.6,
     socialMedia: {
-        whatsapp: '919876543214',
-        facebook: 'https://facebook.com'
+      whatsapp: '919876543214',
+      facebook: 'https://facebook.com'
     }
   },
   {
@@ -128,8 +130,8 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=City+Trends&background=8b5cf6&color=fff&size=256',
     rating: 4.3,
     socialMedia: {
-        instagram: 'https://instagram.com',
-        website: 'https://example.com'
+      instagram: 'https://instagram.com',
+      website: 'https://example.com'
     }
   },
   {
@@ -147,8 +149,8 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Theni+Gold&background=d97706&color=fff&size=256',
     rating: 4.9,
     socialMedia: {
-        facebook: 'https://facebook.com',
-        whatsapp: '919876543216'
+      facebook: 'https://facebook.com',
+      whatsapp: '919876543216'
     }
   },
   {
@@ -166,7 +168,7 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Vetri+Computers&background=3b82f6&color=fff&size=256',
     rating: 4.1,
     socialMedia: {
-        linkedin: 'https://linkedin.com'
+      linkedin: 'https://linkedin.com'
     }
   },
   {
@@ -199,10 +201,10 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Royal+Fitness&background=14b8a6&color=fff&size=256',
     rating: 4.5,
     socialMedia: {
-        instagram: 'https://instagram.com',
-        facebook: 'https://facebook.com',
-        whatsapp: '919876543219',
-        website: 'https://example.com'
+      instagram: 'https://instagram.com',
+      facebook: 'https://facebook.com',
+      whatsapp: '919876543219',
+      website: 'https://example.com'
     }
   },
   {
@@ -235,7 +237,7 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Poorvika&background=ec4899&color=fff&size=256',
     rating: 4.7,
     socialMedia: {
-        website: 'https://poorvika.com'
+      website: 'https://poorvika.com'
     }
   },
   {
@@ -253,7 +255,7 @@ export const mockShops: Shop[] = [
     logo: 'https://ui-avatars.com/api/?name=Apollo&background=0284c7&color=fff&size=256',
     rating: 4.4,
     socialMedia: {
-        website: 'https://apollopharmacy.in'
+      website: 'https://apollopharmacy.in'
     }
   },
   {
@@ -535,6 +537,54 @@ export const mockOffers: Offer[] = [
     originalPrice: 1999,
     offerPrice: 1199,
     code: "POWER40"
+  },
+  {
+    id: 'o17',
+    title: 'Hari hospital',
+    description: 'Full body checkup at just ₹999.',
+    discountPercentage: 50,
+    validUntil: '2024-12-31',
+    category: 'Health',
+    subCategory: 'Hospital',
+    shopId: 's13',
+    location: 'Periyakulam',
+    isSponsored: false,
+    image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=800',
+    originalPrice: 1500,
+    offerPrice: 999,
+    code: "HEALTH999"
+  },
+  {
+    id: 'o18',
+    title: 'JCB',
+    description: 'minimum 2 hours booking ₹999.',
+    discountPercentage: 50,
+    validUntil: '2024-12-31',
+    category: 'transportation',
+    subCategory: 'JCB',
+    shopId: 's15',
+    location: 'Periyakulam',
+    isSponsored: false,
+    image: 'https://wallpapercave.com/wp/wp2100850.jpg',
+    originalPrice: 2000,
+    offerPrice: 1500,
+    code: "JCB10"
+  },
+  {
+    id: 'o19',
+    title: 'Crane',
+    description: 'minimum 1 hours booking ₹1500. 9 Ton capacity to 50 Ton capacity',
+    discountPercentage: 50,
+    validUntil: '2024-12-31',
+    category: 'transportation',
+    subCategory: 'Crane',
+    shopId: 's15',
+    location: 'Periyakulam',
+    isSponsored: false,
+    image: 'https://tse4.mm.bing.net/th/id/OIP.zcGf2gsfKgqBHitoiTo_MAHaEG?rs=1&pid=ImgDetMain&o=7&rm=3',
+    originalPrice: 2000,
+    offerPrice: 999,
+    code: "CRANE10"
   }
 ];
 
