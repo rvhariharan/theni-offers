@@ -14,7 +14,7 @@ export const CATEGORY_HIERARCHY: Record<string, string[]> = {
   'Education': ['School', 'College', 'Coaching', 'Training Institute'],
   'Jewellery': ['Gold', 'Silver', 'Diamond', 'Imitation'],
   'Real Estate': ['Residential', 'Commercial', 'Plots', 'Rentals'],
-  'transportation': ['Taxi', 'Bus', 'JCB', 'Car Rental', 'lorry', 'crane', 'mini lorry']
+  'transportation': ['Taxi', 'Bus', 'JCB', 'Car Rental', 'Lorry', 'Crane', 'Mini Lorry']
 };
 
 export const CATEGORIES = Object.keys(CATEGORY_HIERARCHY);
