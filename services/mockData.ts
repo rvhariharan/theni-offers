@@ -540,8 +540,8 @@ export const mockOffers: Offer[] = [
   },
   {
     id: 'o17',
-    title: 'Hari hospital',
-    description: 'Full body checkup at just ₹999.',
+    title: 'Hari dental care',
+    description: 'dental care ₹999.',
     discountPercentage: 50,
     validUntil: '2024-12-31',
     category: 'Health',
