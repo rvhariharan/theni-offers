@@ -1,0 +1,224 @@
+CATEGORY LIST
+1. Food & Dining
+Subcategories:
+1.Restaurants
+2.Vegetarian Restaurants
+3.Non-Veg Restaurants
+4.Multi-Cuisine Restaurants
+5.Cafes
+6.Bakeries
+7.Sweet Shops
+8.Ice Cream & Juice Shops
+9.Tea & Coffee Shops
+10.Fast Food / Snacks
+11.Catering Services
+12.Home Food / Tiffin Services
+13.Cake Order Services
+14.Cloud Kitchens
+
+2. Fashion & Apparel
+Subcategories:
+1.Men’s Wear
+2.Women’s Wear
+3.Kids Wear
+4.Saree Shops
+5.Textile Stores
+6.Boutiques & Designer Wear
+7.Innerwear & Lingerie
+8.Footwear Stores
+9.Bags & Wallets
+10.Fashion Accessories
+11.School Uniform Shops
+
+3. Electronics & Appliances
+Subcategories:
+1.Mobile Showrooms
+2.Laptop Stores
+3.TV / AC / Fridge Dealers
+4.Home Appliances Stores
+5.CCTV & Security Systems
+6.Mobile Accessories
+7.Computer Accessories
+8.Inverter & Battery Shops
+
+4. Grocery & Daily Needs
+Subcategories:
+1.Supermarkets
+2.Grocery Stores
+3.Organic Stores
+4.Fruits & Vegetables
+5.Dairy & Milk Products
+6.Meat & Fish Shops
+7.Pet Food & Pet Stores
+8.General Stores
+
+5. Home & Living
+Subcategories:
+1.Furniture Stores
+2.Mattress Stores
+3.Kitchenware Shops
+4.Home Decor & Gift Items
+5.Modular Kitchen Showrooms
+6.Interior Showrooms
+7.Curtains & Blind Shops
+8.Lighting & Electrical Shops
+9.Home Essentials (Towels, Bedsheets)
+
+6. Jewellery & Accessories
+Subcategories:
+1.Gold Jewellery
+2.Silver Jewellery
+3.Platinum Jewellery
+4.Diamond Jewellery
+5.Imitation Jewellery
+6.Gift & Fancy Stores
+7.Watches & Timepiece Stores
+
+7. Beauty & Personal Care
+Subcategories:
+1.Beauty Parlours
+2.Men’s Salons
+3.Spa & Massage
+4.Bridal Makeup Studios
+5.Cosmetics Stores
+6.Perfume Stores
+7.Nail Studios
+8.Skincare Treatment Centers
+
+8. Automobile (Sales & Services)
+Subcategories:
+1.Bike Showrooms
+2.Car Showrooms
+3.Used Car/Used Bike Dealers
+4.Car Wash
+5.Bike Service Centers
+6.Car Service Centers
+7.Auto Detailing / Ceramic Coating
+8.Tyre Shops
+9.Battery Shops
+10.Car/Bike Accessories
+
+9. Healthcare & Wellness
+Subcategories:
+1.Hospitals
+2.Clinics
+3.Dental Clinics
+4.Eye Clinics
+5.Physiotherapy Centres
+6.Diagnostic Centres / Labs
+7.Medical Shops
+8.Surgical Equipment Shops
+9.Optical Stores
+10.Hearing Aid Stores
+11.Fitness Trainers
+12.Yoga Centres
+
+10. Home Services
+Subcategories:
+1.Electricians
+2.Plumbers
+3.AC Mechanic / AC Service
+4.RO Water Purifier Service
+5.Painting Contractors
+6.Pest Control
+7.Cleaning Services
+8.Carpenter
+9.Tiles & Granite Work
+10.Borewell Service
+
+11. Creative, Media & Printing
+Subcategories:
+1.Photography Studios
+2.Videography Teams
+3.Album Designing
+4.Printing Press
+5.Flex & Branding Shops
+6.Digital Marketing Agencies
+7.Social Media Managers
+8.Script & Content Writers
+
+12. Education & Training
+Subcategories:
+1.Tuition Centres
+2.Coaching Institutes
+3.Computer Training
+4.Languages & Spoken English
+5.Skill Development Centers
+6.Dance Classes
+7.Music Classes
+8.Arts & Craft Classes
+9.Competitive Exam Coaching
+
+13. Events & Celebrations
+Subcategories:
+1.Event Planners
+2.Decoration Services
+3.Wedding Planners
+4.Catering Services
+5.Stage Sound & Lighting
+6.Mandapam / Banquet Halls
+7.Photography/Videography
+8.DJ Services
+9.Costume Rentals
+
+14. Professional Services
+Subcategories:
+1.Advocates
+2.Chartered Accountants
+3.Tax Consultants
+4.Architects
+5.Interior Designers
+6.Civil Engineers
+7.Real Estate Agents
+8.Insurance Agents
+9.Travel Agents
+
+15. Agriculture & Industrial
+Subcategories:
+1.Agri Fertilizer Shops
+2.Pesticide Shops
+3.Seeds & Plants Nursery
+4.Tractor & Agri Tools
+5.Industrial Equipment Dealers
+6.Welding & Fabrication Shops
+
+16. Stationery, Books & Kids
+Subcategories:
+1.Book Stores
+2.Stationery Shops
+3.Toy Shops
+4.Baby Products Stores
+5.School Supplies
+6.Gift Shops
+
+17. Sports & Lifestyle
+Subcategories:
+1.Sports Shops
+2.Gym Equipment Stores
+3.Outdoor Gear
+4.Cycle Stores
+
+18. Real Estate & Construction
+Subcategories:
+1.Property Agents
+2.Land Promoters
+3.Construction Companies
+4.Hardware Shops
+5.Cement & Steel Dealers
+6.Tiles & Sanitary Ware Shops
+
+19. Pets & Animals
+Subcategories:
+1.Pet Shops
+2.Pet Food Stores
+3.Veterinary Clinics
+4.Animal Care Services
+
+20. Online & Digital Services
+Subcategories:
+1.Website Development
+2.App Development
+3.SEO Services
+4.Google Ads Management
+5.Graphic Designing
+6.Video Editing Services

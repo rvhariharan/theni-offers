@@ -192,7 +192,7 @@ const Home: React.FC = () => {
                             <span>The #1 Local Marketplace</span>
                         </div>
                         {/* Responsive Text Size */}
-                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 leading-[1.1]">
+                        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-yellow-900 tracking-tight mb-6 leading-[1.1]">
                             Discover the best of <br/>
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Theni District</span>
                         </h1>

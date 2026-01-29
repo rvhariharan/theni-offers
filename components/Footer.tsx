@@ -1,80 +1,79 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Mail, MapPin, Phone, ArrowRight, Heart } from 'lucide-react';
+import footerLogo from '../img/footer_logo.jpg';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-slate-950 text-slate-300 relative overflow-hidden">
+    <footer className="bg-primary text-white relative overflow-hidden">
       {/* Decorative Top Gradient Line */}
-      <div className="h-1 w-full bg-gradient-to-r from-primary via-teal-500 to-secondary"></div>
+      <div className="h-1 w-full bg-gradient-to-r from-white via-secondary to-white opacity-20"></div>
 
       {/* Background blobs for subtle effect */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-[100px] translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          
+
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="inline-block group">
-               <span className="text-3xl font-extrabold text-white tracking-tight transition-transform group-hover:scale-105 inline-block">
-                Theni<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-400">Offers</span>
-              </span>
+              <img src={footerLogo} alt="Theni Offers" className="h-12 w-auto transition-transform group-hover:scale-105" />
             </Link>
-            <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
+            <p className="text-white/80 text-sm leading-relaxed max-w-xs">
               The #1 hyper-local digital marketplace. Connecting Theni's businesses with the community through exclusive deals and opportunities.
             </p>
             <div className="flex space-x-3 pt-2">
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 hover:-translate-y-1">
-                  <Facebook size={18} />
+              <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
+                <Facebook size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all duration-300 hover:-translate-y-1">
-                  <Instagram size={18} />
+              <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
+                <Instagram size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-sky-500 hover:text-white transition-all duration-300 hover:-translate-y-1">
-                  <Twitter size={18} />
+              <a href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
+                <Twitter size={18} />
               </a>
             </div>
           </div>
-          
+
           {/* Quick Links */}
           <div>
             <h4 className="text-white font-bold mb-6 text-lg relative inline-block">
-                Explore
-                <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-primary rounded-full"></span>
+              Explore
+              <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-secondary rounded-full"></span>
             </h4>
-            <ul className="space-y-4 text-sm font-medium text-slate-400">
+            <ul className="space-y-4 text-sm font-medium text-white/80">
               <li>
-                <Link to="/" className="hover:text-primary transition-all duration-300 flex items-center group">
-                    <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
-                        <ArrowRight size={12} className="mr-1"/>
-                    </span>
-                    Trending Offers
+                <Link to="/" className="hover:text-secondary transition-all duration-300 flex items-center group">
+                  <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
+                    <ArrowRight size={12} className="mr-1" />
+                  </span>
+                  Trending Offers
                 </Link>
               </li>
               <li>
-                <Link to="/shops" className="hover:text-primary transition-all duration-300 flex items-center group">
-                    <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
-                        <ArrowRight size={12} className="mr-1"/>
-                    </span>
-                    Shops Directory
+                <Link to="/shops" className="hover:text-secondary transition-all duration-300 flex items-center group">
+                  <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
+                    <ArrowRight size={12} className="mr-1" />
+                  </span>
+                  Shops Directory
                 </Link>
               </li>
               <li>
-                <Link to="/jobs" className="hover:text-primary transition-all duration-300 flex items-center group">
-                    <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
-                        <ArrowRight size={12} className="mr-1"/>
-                    </span>
-                    Job Listings
+                <Link to="/jobs" className="hover:text-secondary transition-all duration-300 flex items-center group">
+                  <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
+                    <ArrowRight size={12} className="mr-1" />
+                  </span>
+                  Job Listings
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="hover:text-primary transition-all duration-300 flex items-center group">
-                    <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
-                        <ArrowRight size={12} className="mr-1"/>
-                    </span>
-                    About Us
+                <Link to="/about" className="hover:text-secondary transition-all duration-300 flex items-center group">
+                  <span className="w-0 overflow-hidden group-hover:w-4 transition-all duration-300 opacity-0 group-hover:opacity-100">
+                    <ArrowRight size={12} className="mr-1" />
+                  </span>
+                  About Us
                 </Link>
               </li>
             </ul>
@@ -83,10 +82,10 @@ const Footer: React.FC = () => {
           {/* Categories */}
           <div>
             <h4 className="text-white font-bold mb-6 text-lg relative inline-block">
-                Categories
-                <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-secondary rounded-full"></span>
+              Categories
+              <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-white/50 rounded-full"></span>
             </h4>
-            <ul className="space-y-4 text-sm font-medium text-slate-400">
+            <ul className="space-y-4 text-sm font-medium text-white/80">
               <li><Link to="/offers?category=Electronics" className="hover:text-secondary hover:translate-x-1 transition-all duration-300 inline-block">Electronics</Link></li>
               <li><Link to="/offers?category=Fashion" className="hover:text-secondary hover:translate-x-1 transition-all duration-300 inline-block">Fashion</Link></li>
               <li><Link to="/offers?category=Food%20%26%20Dining" className="hover:text-secondary hover:translate-x-1 transition-all duration-300 inline-block">Food & Dining</Link></li>
@@ -97,45 +96,45 @@ const Footer: React.FC = () => {
           {/* Contact */}
           <div>
             <h4 className="text-white font-bold mb-6 text-lg relative inline-block">
-                Get in Touch
-                <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-teal-500 rounded-full"></span>
+              Get in Touch
+              <span className="absolute bottom-0 left-0 w-1/2 h-1 bg-secondary rounded-full"></span>
             </h4>
             <ul className="space-y-5 text-sm">
               <li className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0 text-primary border border-white/5">
-                    <MapPin size={18} />
-                  </div>
-                  <span className="leading-relaxed pt-1">123, Tech Park, <br/>Theni Main Road, Theni</span>
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-secondary border border-white/5">
+                  <MapPin size={18} />
+                </div>
+                <span className="leading-relaxed pt-1">Theni Main Road, Theni</span>
               </li>
               <li className="flex items-center gap-4">
-                   <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0 text-primary border border-white/5">
-                    <Mail size={18} />
-                   </div>
-                  <a href="mailto:support@thenioffers.com" className="hover:text-white transition-colors">support@thenioffers.com</a>
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-secondary border border-white/5">
+                  <Mail size={18} />
+                </div>
+                <a href="mailto:support@thenioffers.com" className="hover:text-secondary transition-colors">support@thenioffers.com</a>
               </li>
-               <li className="flex items-center gap-4">
-                   <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0 text-primary border border-white/5">
-                    <Phone size={18} />
-                   </div>
-                  <a href="tel:+919876543210" className="hover:text-white transition-colors">+91 98765 43210</a>
+              <li className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center shrink-0 text-secondary border border-white/5">
+                  <Phone size={18} />
+                </div>
+                <a href="tel:+919876543210" className="hover:text-secondary transition-colors">+91 98765 43210</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500 gap-4">
-            <p className="text-center md:text-left">© 2024 Theni Offers. All rights reserved.</p>
-            
-            <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-white/5 border border-white/5">
-                <span>Made with</span>
-                <Heart size={14} className="text-rose-500 fill-rose-500 animate-pulse" />
-                <span>in Theni</span>
-            </div>
+        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white/60 gap-4">
+          <p className="text-center md:text-left">© 2024 Theni Offers. All rights reserved.</p>
 
-            <div className="flex space-x-6 font-medium">
-                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            </div>
+          <div className="flex items-center gap-2 px-4 py-1 rounded-full bg-white/5 border border-white/5">
+            <span>Made with</span>
+            <Heart size={14} className="text-secondary fill-secondary animate-pulse" />
+            <span>in Theni</span>
+          </div>
+
+          <div className="flex space-x-6 font-medium">
+            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
