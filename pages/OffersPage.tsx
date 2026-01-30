@@ -91,7 +91,8 @@ const OffersPage: React.FC = () => {
                     <span>Exclusive Deals & Offers</span>
                  </div>
                  <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">
-                    Save big on <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-600">products you love</span>
+                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Save big on</span> <br className="hidden md:block"/>
+                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">products you love</span>
                  </h1>
                  <p className="text-lg text-slate-500 font-medium">Browse thousands of active offers from local businesses.</p>
              </div>

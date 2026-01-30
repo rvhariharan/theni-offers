@@ -91,7 +91,8 @@ const ShopsPage: React.FC = () => {
                     <span>Local Business Directory</span>
                  </div>
                  <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">
-                    Explore Theni's <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-600">Best Businesses</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Explore Theni's</span> <br className="hidden md:block"/> 
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Best Businesses</span>
                  </h1>
                  <p className="text-lg text-slate-500 font-medium">From top-rated restaurants to trusted service providers.</p>
              </div>

@@ -19,8 +19,8 @@ const About: React.FC = () => {
                 <span>Made with love in Theni</span>
              </div>
              <h1 className="text-4xl md:text-7xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
-                Empowering Local <br/>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-600">Commerce & Community</span>
+               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Empowering Local</span> <br/>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Commerce & Community</span>
              </h1>
              <p className="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
                 We're building the digital infrastructure to help Theni's businesses thrive and customers discover the best of their city.

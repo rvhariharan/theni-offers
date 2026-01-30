@@ -81,7 +81,8 @@ const JobsPage: React.FC = () => {
                     <span>#1 Job Board in Theni</span>
                  </div>
                  <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">
-                    Find the perfect job <br className="hidden md:block"/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-teal-600">in your neighborhood</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Find the perfect job</span> <br className="hidden md:block"/> 
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">in your neighborhood</span>
                  </h1>
                  <p className="text-lg text-slate-500 font-medium">Connecting local talent with the best opportunities in Theni.</p>
              </div>

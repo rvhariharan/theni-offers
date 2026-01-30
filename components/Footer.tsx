@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Mail, MapPin, Phone, ArrowRight, Heart } from 'lucide-react';
-import footerLogo from '../img/footer_logo.jpg';
+import footerLogo from '../img/Theni Offers SVG file.svg';
 
 const Footer: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="inline-block group">
-              <img src={footerLogo} alt="Theni Offers" className="h-12 w-auto transition-transform group-hover:scale-105" />
+              <img src={footerLogo} alt="Theni Offers" className="h-28 w-auto transition-transform group-hover:scale-105" />
             </Link>
             <p className="text-white/80 text-sm leading-relaxed max-w-xs">
               The #1 hyper-local digital marketplace. Connecting Theni's businesses with the community through exclusive deals and opportunities.

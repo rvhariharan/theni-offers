@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, ShoppingBag, MapPin, Briefcase, Info, Home, Search, ArrowRight } from 'lucide-react';
-import headerLogo from '../img/header_logo.jpg';
+import headerLogo from '../img/theni headers logo.svg';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);

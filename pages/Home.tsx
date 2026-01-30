@@ -193,7 +193,7 @@ const Home: React.FC = () => {
                         </div>
                         {/* Responsive Text Size */}
                         <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-yellow-900 tracking-tight mb-6 leading-[1.1]">
-                            Discover the best of <br/>
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Discover the best of</span> <br/>
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Theni District</span>
                         </h1>
                         <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto font-medium">
