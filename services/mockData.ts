@@ -788,6 +788,6 @@ export const mockAds: Ad[] = [
     redirectUrl: '#',
     placement: 'home_banner',
     isActive: true,
-    type: 'video'
+    type: 'image'
   }
 ];

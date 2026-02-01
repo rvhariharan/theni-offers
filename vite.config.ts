@@ -4,8 +4,14 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
+
+  // CONFIGURATION:
+  // For Hostinger (Root Domain): use '/'
+  // For GitHub Pages: use '/theni-offers/'
+  const basePath = '/';
+
   return {
-    base: './',
+    base: basePath,
     server: {
       port: 3000,
       host: '0.0.0.0',

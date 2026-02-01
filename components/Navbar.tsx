@@ -127,7 +127,7 @@ const Navbar: React.FC = () => {
             <input
               type="text"
               placeholder="Search offers, shops, jobs..."
-              className="w-full bg-white text-primary pl-11 pr-12 py-3.5 rounded-2xl border border-primary/20 focus:ring-2 focus:ring-primary/20 font-medium placeholder:text-primary/40"
+              className="w-full bg-slate-50 text-slate-900 pl-11 pr-12 py-3.5 rounded-2xl border-none focus:ring-0 font-medium placeholder:text-slate-400"
               autoFocus
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

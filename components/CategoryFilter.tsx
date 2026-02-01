@@ -96,14 +96,14 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({
       {/* Sub Categories Slider */}
       {showSubCategories && selectedCategory !== 'All' && subCategories.length > 0 && (
         <div className="relative group animate-slideUp">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-full bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-full bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+          <div className="absolute left-0 top-1/3 -translate-y-1/2 z-10 w-8 h-full bg-gradient-to-r from-blue to-transparent pointer-events-none"></div>
+          <div className="absolute right-0 top-1/3 -translate-y-1/2 z-10 w-8 h-full bg-gradient-to-l from-blue to-transparent pointer-events-none"></div>
 
           <div
             ref={subCategoryScrollRef}
-            className="flex items-center gap-2 overflow-x-auto scrollbar-hide px-1 py-1"
+            className="flex items-center gap-1 overflow-x-auto scrollbar-hide px-1 py-1"
           >
-            <span className="text-xs font-bold text-primary/40 uppercase tracking-wide mr-2 flex-shrink-0">
+            <span className="text-xs font-bold text-blue-600 uppercase tracking-wide mr-1 flex-shrink-0">
               Filter by:
             </span>
             {subCategories.map((sub) => (
