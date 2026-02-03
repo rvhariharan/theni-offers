@@ -724,15 +724,7 @@ export const mockAds = [
         isActive: true,
         type: 'image'
     },
-    {
-        id: 'ad3',
-        title: 'Learn Digital Marketing',
-        imageUrl: 'https://images.unsplash.com/photo-1533750516457-a7f992034fec?auto=format&fit=crop&q=80&w=1200',
-        redirectUrl: '#',
-        placement: 'list_insert',
-        isActive: true,
-        type: 'image'
-    },
+
     {
         id: 'ad4',
         title: 'Best Wedding Hall',
@@ -742,42 +734,18 @@ export const mockAds = [
         isActive: true,
         type: 'image'
     },
-    {
-        id: 'ad5',
-        title: 'School Admissions Open',
-        imageUrl: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?auto=format&fit=crop&q=80&w=1200',
-        redirectUrl: '#',
-        placement: 'category_banner',
-        isActive: true,
-        type: 'image'
-    },
-    {
-        id: 'ad6',
-        title: 'Multi-Speciality Hospital',
-        imageUrl: 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=1200',
-        redirectUrl: '#',
-        placement: 'list_insert',
-        isActive: true,
-        type: 'image'
-    },
+
+
     {
         id: 'ad7',
         title: 'Furniture Sale - Up to 40% Off',
         imageUrl: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=1200',
         redirectUrl: '#',
-        placement: 'detail_page',
+        placement: 'list_banner',
         isActive: true,
         type: 'image'
     },
-    {
-        id: 'ad8',
-        title: 'Dream Home Loans',
-        imageUrl: 'https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?auto=format&fit=crop&q=80&w=1200',
-        redirectUrl: '#',
-        placement: 'list_insert',
-        isActive: true,
-        type: 'image'
-    },
+
     {
         id: 'ad9',
         title: 'Experience Virtual Shopping',

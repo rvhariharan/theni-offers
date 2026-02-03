@@ -172,9 +172,7 @@ const OffersPage = () => {
                     </h1>
                 </div>
 
-                <div className="mb-8">
-                    <AdBanner placement="category_banner" className="rounded-2xl shadow-soft" />
-                </div>
+                <AdBanner placement="category_banner" className="rounded-2xl shadow-soft mb-8" />
 
                 {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -194,12 +192,7 @@ const OffersPage = () => {
                             <OfferCard key={offer.id} offer={offer} onViewClick={setSelectedOffer} />
                         ))}
 
-                        {/* In-feed Ad Banner */}
-                        {offers.length > 0 && (
-                            <div className="col-span-1 sm:col-span-2 lg:col-span-3">
-                                <AdBanner placement="list_insert" adIndex={2} className="rounded-2xl shadow-soft" />
-                            </div>
-                        )}
+
 
                         {/* Second Half of Offers */}
                         {secondHalf.map(offer => (

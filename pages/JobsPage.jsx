@@ -74,7 +74,7 @@ const JobsPage = () => {
     return (
         <div className="min-h-screen bg-slate-50 pb-12">
             {/* Hero */}
-            <div className="bg-primary/80 text-white relative overflow-hidden py-16 md:py-20">
+            <div className="bg-primary text-white relative overflow-hidden py-16 md:py-20">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

@@ -90,7 +90,7 @@ const ShopsPage = () => {
                             <span>Exclusive Deals & Offers</span>
                         </div>
                         <h1 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">
-                            Save Big on <span className="text-secondary">Products You Love</span>
+                            Explore Theni's <span className="text-secondary">Best Businesses</span>
                         </h1>
                         <p className="text-lg text-white/60 font-medium">From top-rated restaurants to trusted service providers.</p>
                     </div>
@@ -186,9 +186,7 @@ const ShopsPage = () => {
                     <span className="text-sm text-slate-500 font-medium hidden md:block">Top Rated First</span>
                 </div>
 
-                <div className="mb-8">
-                    <AdBanner placement="category_banner" className="rounded-3xl shadow-soft" />
-                </div>
+                <AdBanner placement="category_banner" className="rounded-3xl shadow-soft mb-8" />
 
                 {loading ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -212,12 +210,7 @@ const ShopsPage = () => {
                                     <ShopCard key={shop.id} shop={shop} />
                                 ))}
 
-                                {/* In-feed Ad Banner */}
-                                {shops.length > 0 && (
-                                    <div className="col-span-1 md:col-span-2 lg:col-span-3">
-                                        <AdBanner placement="list_insert" adIndex={0} className="rounded-3xl shadow-soft" />
-                                    </div>
-                                )}
+
 
                                 {/* Second Half */}
                                 {secondHalf.map(shop => (

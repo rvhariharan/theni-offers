@@ -18,7 +18,7 @@ const About = () => {
                         <span className="text-primary">Commerce & Community</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-slate-500 max-w-3xl mx-auto leading-relaxed font-medium">
+                    <p className="text-xl md:text-2xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-medium">
                         We're building the digital infrastructure to help Theni's businesses thrive and customers discover the best of their city.
                     </p>
                 </div>

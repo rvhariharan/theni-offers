@@ -448,9 +448,6 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* --- MID-PAGE AD 2 (Kept as spacer) --- */}
-                <AdBanner placement="list_insert" adIndex={1} className="md:h-64" />
-
                 {/* --- JOBS SECTION --- */}
                 <section>
                     <SectionHeader
@@ -497,8 +494,7 @@ const Home = () => {
                     </div>
                 </section>
 
-                {/* --- MOVED: AD BANNER 1 --- */}
-                <AdBanner placement="list_insert" adIndex={0} className="md:h-64" />
+
 
                 {/* --- NEW SECTION: PREMIUM BRANDS --- */}
                 <section>
