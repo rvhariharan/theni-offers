@@ -29,7 +29,7 @@ const Footer = () => {
                             <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
                                 <Facebook size={18} />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
+                            <a href="https://instagram.com/theni_offers" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
                                 <Instagram size={18} />
                             </a>
                             <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300 hover:-translate-y-1">
@@ -104,13 +104,13 @@ const Footer = () => {
                                 <div className="w-10 h-10 rounded-[10px] bg-white/10 flex items-center justify-center shrink-0">
                                     <Phone size={18} className="text-secondary" />
                                 </div>
-                                <a href="tel:+919876543210" className="text-white/70 hover:text-white transition-colors">+91 98765 43210</a>
+                                <a href="tel:+919500456486" className="text-white/70 hover:text-white transition-colors">+91 9500 456 486</a>
                             </li>
                             <li className="flex items-center gap-4">
                                 <div className="w-10 h-10 rounded-[10px] bg-white/10 flex items-center justify-center shrink-0">
                                     <Mail size={18} className="text-secondary" />
                                 </div>
-                                <a href="mailto:info@thenioffers.com" className="text-white/70 hover:text-white transition-colors">info@thenioffers.com</a>
+                                <a href="mailto:Thenioffers@gmail.com" className="text-white/70 hover:text-white transition-colors">Thenioffers@gmail.com</a>
                             </li>
                         </ul>
                     </div>

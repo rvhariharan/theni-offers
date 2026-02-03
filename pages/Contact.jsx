@@ -61,7 +61,7 @@ const Contact = () => {
                                             </div>
                                             <div>
                                                 <p className="text-xs font-bold text-slate-400 uppercase mb-1">Phone</p>
-                                                <p className="text-slate-700 font-bold text-lg">+91 98765 43210</p>
+                                                <p className="text-slate-700 font-bold text-lg">+91 9500 456 486</p>
                                                 <p className="text-slate-500 text-sm">Mon-Fri 9am-6pm</p>
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@ const Contact = () => {
                                             </div>
                                             <div>
                                                 <p className="text-xs font-bold text-slate-400 uppercase mb-1">Email</p>
-                                                <p className="text-slate-700 font-bold">info@thenioffers.com</p>
+                                                <p className="text-slate-700 font-bold">Thenioffers@gmail.com</p>
                                                 <p className="text-slate-500 text-sm">Target response time: 24h</p>
                                             </div>
                                         </div>
@@ -158,8 +158,8 @@ const Contact = () => {
                                 type="submit"
                                 disabled={status !== 'idle'}
                                 className={`w-full py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 active:scale-95 ${status === 'success'
-                                        ? 'bg-green-500 text-white shadow-green-200'
-                                        : 'bg-primary text-white hover:bg-primary/90 shadow-primary/30'
+                                    ? 'bg-green-500 text-white shadow-green-200'
+                                    : 'bg-primary text-white hover:bg-primary/90 shadow-primary/30'
                                     }`}
                             >
                                 {status === 'idle' && (
