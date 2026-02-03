@@ -1,18 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Offer, Shop } from '../types';
 import { X, Download, MapPin, Phone, Calendar, BadgeCheck, QrCode, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { api } from '../services/api';
 import html2canvas from 'html2canvas';
 
-interface OfferModalProps {
-    offer: Offer;
-    onClose: () => void;
-}
-
-const OfferModal: React.FC<OfferModalProps> = ({ offer, onClose }) => {
-    const [shop, setShop] = useState<Shop | undefined>();
-    const ticketRef = useRef<HTMLDivElement>(null);
+const OfferModal = ({ offer, onClose }) => {
+    const [shop, setShop] = useState();
+    const ticketRef = useRef(null);
     const [isDownloading, setIsDownloading] = useState(false);
 
     useEffect(() => {

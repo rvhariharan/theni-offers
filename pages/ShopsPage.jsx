@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
-import { Shop, FilterState } from '../types';
 import ShopCard from '../components/ShopCard';
 import CategoryFilter from '../components/CategoryFilter';
 import { AREAS } from '../services/mockData';
-import { Search, MapPin, Store, BadgeCheck, RotateCcw, ChevronRight } from 'lucide-react';
+import { Search, MapPin, Store, BadgeCheck, RotateCcw, ChevronRight, Tag } from 'lucide-react';
 import AdBanner from '../components/AdBanner';
 
-const ShopsPage: React.FC = () => {
-    const [shops, setShops] = useState<Shop[]>([]);
+const ShopsPage = () => {
+    const [shops, setShops] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -20,7 +19,7 @@ const ShopsPage: React.FC = () => {
     // Extra local filter for UI
     const [verifiedOnly, setVerifiedOnly] = useState(false);
 
-    const filters: FilterState = {
+    const filters = {
         category: searchParams.get('category') || '',
         subCategory: searchParams.get('subCategory') || '',
         location: searchParams.get('location') || '',
@@ -44,7 +43,7 @@ const ShopsPage: React.FC = () => {
         fetchShops();
     }, [searchParams, verifiedOnly]);
 
-    const updateFilter = (key: keyof FilterState, value: string) => {
+    const updateFilter = (key, value) => {
         const newParams = new URLSearchParams(searchParams);
         if (value && value !== 'All') newParams.set(key, value);
         else newParams.delete(key);
@@ -53,7 +52,7 @@ const ShopsPage: React.FC = () => {
         setSearchParams(newParams);
     };
 
-    const handleMainSearch = (e: React.FormEvent) => {
+    const handleMainSearch = (e) => {
         e.preventDefault();
         const newParams = new URLSearchParams(searchParams);
         if (searchTerm.trim()) newParams.set('search', searchTerm.trim());
@@ -78,90 +77,44 @@ const ShopsPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 pb-12">
-            {/* Hero Section */}
-            <div className="bg-white border-b border-slate-100 relative overflow-hidden">
-                {/* Decorative Blobs */}
-                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+            {/* Hero */}
+            <div className="bg-primary text-white relative overflow-hidden py-16 md:py-20">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2"></div>
 
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
                     <div className="max-w-3xl mx-auto text-center mb-10">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider mb-6 animate-fadeIn">
-                            <Store size={14} className="text-primary" />
-                            <span>Local Business Directory</span>
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-bold uppercase tracking-wider mb-6 animate-fadeIn border border-white/10">
+                            <Tag size={14} className="text-secondary" />
+                            <span>Exclusive Deals & Offers</span>
                         </div>
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4 leading-tight">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Explore Theni's</span> <br className="hidden md:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Best Businesses</span>
+                        <h1 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">
+                            Save Big on <span className="text-secondary">Products You Love</span>
                         </h1>
-                        <p className="text-lg text-slate-500 font-medium">From top-rated restaurants to trusted service providers.</p>
+                        <p className="text-lg text-white/60 font-medium">From top-rated restaurants to trusted service providers.</p>
                     </div>
 
                     {/* Search Bar */}
-                    <form onSubmit={handleMainSearch} className="max-w-4xl mx-auto">
-                        {/* Mobile Layout: Modern & Glassmorphic */}
-                        <div className="md:hidden bg-white p-3 rounded-[2rem] shadow-xl shadow-slate-200/50 flex flex-col gap-2 animate-slideUp">
-                            {/* Search Query */}
-                            <div className="relative group">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <Search className="text-slate-400 group-focus-within:text-primary transition-colors" size={22} />
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder="Search for offers, shops..."
-                                    className="w-full pl-12 pr-4 py-3.5 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:border-transparent focus:shadow-none ring-0 rounded-xl text-slate-900 font-semibold placeholder:text-slate-400 caret-primary appearance-none text-base"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <div className="h-px bg-slate-100 mx-2"></div>
-                            {/* Location */}
-                            <div className="relative group">
-                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <MapPin className="text-slate-400 group-focus-within:text-secondary transition-colors" size={22} />
-                                </div>
-                                <select
-                                    className="w-full pl-12 pr-10 py-3.5 bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:border-transparent ring-0 rounded-xl text-slate-900 font-bold appearance-none text-base"
-                                    value={tempLocation}
-                                    onChange={(e) => setTempLocation(e.target.value)}
-                                >
-                                    <option value="">Select Location</option>
-                                    {AREAS.map(area => (
-                                        <option key={area} value={area}>{area}</option>
-                                    ))}
-                                </select>
-                                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                    <ChevronRight className="text-slate-400 rotate-90" size={16} />
-                                </div>
-                            </div>
-
-                            {/* Search Button - Full Width for Mobile */}
-                            <button
-                                type="submit"
-                                className="w-full py-4 mt-1 bg-primary hover:bg-primary/90 text-white rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/25 active:scale-[0.98] transition-all font-bold text-lg"
-                            >
-                                <Search size={20} />
-                                Search Now
-                            </button>
+                    <form onSubmit={handleMainSearch} className="max-w-4xl mx-auto relative group">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <Search className="text-white/40 group-focus-within:text-secondary transition-colors" size={20} />
                         </div>
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <input
+                                type="text"
+                                placeholder="Search shops..."
+                                className="w-full pl-12 pr-4 py-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:bg-white/20 transition-all font-bold"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
 
-                        {/* Desktop Layout: Horizontal Bar */}
-                        <div className="hidden md:flex bg-white p-2 rounded-[2rem] shadow-hover flex-row gap-2 transform transition-all hover:scale-[1.01]">
-                            <div className="flex-1 flex items-center px-6 h-14 bg-transparent rounded-[1.5rem] group focus-within:bg-slate-50 transition-colors">
-                                <Search className="text-slate-400 mr-3 group-focus-within:text-primary transition-colors flex-shrink-0" />
-                                <input
-                                    type="text"
-                                    placeholder="Search for offers, shops..."
-                                    className="bg-transparent border-none focus:ring-0 focus:outline-none focus:border-transparent outline-none ring-0 w-full text-slate-900 font-bold placeholder:text-slate-400 text-lg caret-primary appearance-none"
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                />
-                            </div>
-                            <div className="w-px bg-slate-200 my-2"></div>
-                            <div className="flex-1 flex items-center px-6 h-14 bg-transparent rounded-[1.5rem] group focus-within:bg-slate-50 transition-colors">
-                                <MapPin className="text-slate-400 mr-3 group-focus-within:text-primary transition-colors flex-shrink-0" />
+                            <div className="relative md:w-1/3">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <MapPin className="text-white/40 group-focus-within:text-secondary transition-colors" size={20} />
+                                </div>
                                 <select
-                                    className="bg-transparent border-none focus:ring-0 focus:outline-none focus:border-transparent outline-none ring-0 w-full text-slate-900 font-bold cursor-pointer text-lg appearance-none"
+                                    className="w-full pl-12 pr-10 py-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl text-white font-bold cursor-pointer appearance-none focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:bg-white/20 [&>option]:text-slate-900"
                                     value={tempLocation}
                                     onChange={(e) => setTempLocation(e.target.value)}
                                 >
@@ -170,8 +123,12 @@ const ShopsPage: React.FC = () => {
                                         <option key={area} value={area}>{area}</option>
                                     ))}
                                 </select>
+                                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                    <ChevronRight className="text-white/40 rotate-90" size={16} />
+                                </div>
                             </div>
-                            <button type="submit" className="bg-primary hover:bg-primary/90 text-white px-8 h-14 rounded-[1.5rem] font-bold text-lg transition-all shadow-lg hover:shadow-primary/30 active:scale-95">
+
+                            <button type="submit" className="bg-secondary text-white px-8 py-4 rounded-2xl font-bold shadow-lg hover:bg-white hover:text-primary transition-all md:w-auto w-full">
                                 Search
                             </button>
                         </div>
@@ -180,7 +137,7 @@ const ShopsPage: React.FC = () => {
             </div>
 
             {/* Horizontal Filter Bar */}
-            <div className="sticky top-20 z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
+            <div className="sticky top-[105px] z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm transition-all">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { api } from '../services/api';
-import { Offer, Shop, Job, Ad } from '../types';
 import OfferCard from '../components/OfferCard';
 import ShopCard from '../components/ShopCard';
 import JobCard from '../components/JobCard';
@@ -18,7 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CATEGORIES, AREAS } from '../services/mockData';
 
 // Map icons to categories
-const getCategoryIcon = (category: string) => {
+const getCategoryIcon = (category) => {
     switch (category) {
         case 'Electronics': return <Smartphone size={24} />;
         case 'Fashion': return <Shirt size={24} />;
@@ -33,7 +32,7 @@ const getCategoryIcon = (category: string) => {
     }
 };
 
-const getCategoryColor = (index: number) => {
+const getCategoryColor = (index) => {
     const colors = [
         'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white',
         'bg-rose-50 text-rose-600 group-hover:bg-rose-600 group-hover:text-white',
@@ -45,15 +44,15 @@ const getCategoryColor = (index: number) => {
     return colors[index % colors.length];
 };
 
-const Home: React.FC = () => {
-    const [offers, setOffers] = useState<Offer[]>([]);
-    const [shops, setShops] = useState<Shop[]>([]);
-    const [jobs, setJobs] = useState<Job[]>([]);
-    const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
-    const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+const Home = () => {
+    const [offers, setOffers] = useState([]);
+    const [shops, setShops] = useState([]);
+    const [jobs, setJobs] = useState([]);
+    const [selectedOffer, setSelectedOffer] = useState(null);
+    const [selectedJob, setSelectedJob] = useState(null);
 
     // Hero Carousel State
-    const [heroAds, setHeroAds] = useState<Ad[]>([]);
+    const [heroAds, setHeroAds] = useState([]);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
 
@@ -97,7 +96,7 @@ const Home: React.FC = () => {
     const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % totalSlides);
     const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
 
-    const handleHeroSearch = (e: React.FormEvent) => {
+    const handleHeroSearch = (e) => {
         e.preventDefault();
         const params = new URLSearchParams();
         if (heroSearch) params.set('search', heroSearch);
@@ -126,7 +125,7 @@ const Home: React.FC = () => {
         return filtered.slice(0, 6);
     };
 
-    const SectionHeader = ({ title, subtitle, link, linkText, icon: Icon }: any) => (
+    const SectionHeader = ({ title, subtitle, link, linkText, icon: Icon }) => (
         <div className="flex flex-col md:flex-row justify-between items-end mb-8 relative border-b border-gray-100 pb-4">
             <div className="w-full md:w-auto">
                 <div className="flex items-center gap-2 mb-1">
@@ -143,7 +142,7 @@ const Home: React.FC = () => {
         </div>
     );
 
-    const PillFilter = ({ options, active, onSelect }: { options: string[], active: string, onSelect: (val: string) => void }) => (
+    const PillFilter = ({ options, active, onSelect }) => (
         <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide mb-6 snap-x">
             <button
                 onClick={() => onSelect('All')}
@@ -168,7 +167,7 @@ const Home: React.FC = () => {
 
             {/* --- HERO SLIDESHOW SECTION --- */}
             <div
-                className="relative bg-white overflow-hidden group/hero"
+                className="relative bg-primary text-white overflow-hidden group/hero"
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
             >
@@ -181,22 +180,22 @@ const Home: React.FC = () => {
                     >
                         <div className="absolute inset-0">
                             {/* Background Blobs for Slide 0 */}
-                            <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-                            <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-96 h-96 bg-secondary/5 rounded-full blur-3xl -z-10"></div>
+                            <div className="absolute top-0 right-0 -translate-y-12 translate-x-12 w-96 h-96 bg-white/10 rounded-full blur-3xl -z-10"></div>
+                            <div className="absolute bottom-0 left-0 translate-y-12 -translate-x-12 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
                         </div>
 
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12 lg:py-0">
                             <div className="max-w-4xl mx-auto text-center">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider mb-6 animate-fadeIn">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-bold uppercase tracking-wider mb-6 animate-fadeIn border border-white/10">
                                     <Sparkles size={14} className="text-secondary" />
                                     <span>The #1 Local Marketplace</span>
                                 </div>
                                 {/* Responsive Text Size */}
-                                <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-yellow-900 tracking-tight mb-6 leading-[1.1]">
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Discover the best of</span> <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-teal-600 to-secondary">Theni District</span>
+                                <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-[1.1]">
+                                    Discover the best of <br />
+                                    <span className="text-secondary">Theni District</span>
                                 </h1>
-                                <p className="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto font-medium">
+                                <p className="text-lg md:text-xl text-white/60 mb-10 max-w-2xl mx-auto font-medium">
                                     Your one-stop destination for exclusive offers, premium local businesses, and job opportunities right in your neighborhood.
                                 </p>
 
@@ -250,22 +249,22 @@ const Home: React.FC = () => {
                                     </div>
 
                                     {/* Desktop Layout: Horizontal Bar */}
-                                    <div className="hidden md:flex bg-white p-2 rounded-[2rem] shadow-hover flex-row gap-2 transform transition-all hover:scale-[1.01]">
-                                        <div className="flex-1 flex items-center px-6 h-14 bg-transparent rounded-[1.5rem] group focus-within:bg-slate-50 transition-colors">
-                                            <Search className="text-slate-400 mr-3 group-focus-within:text-primary transition-colors flex-shrink-0" />
+                                    <div className="hidden md:flex bg-white/10 backdrop-blur-md border border-white/10 p-2 rounded-[2rem] shadow-lg flex-row gap-2 transform transition-all hover:scale-[1.01]">
+                                        <div className="flex-1 flex items-center px-6 h-14 bg-transparent rounded-[1.5rem] group focus-within:bg-white/10 transition-colors">
+                                            <Search className="text-white/40 mr-3 group-focus-within:text-secondary transition-colors flex-shrink-0" />
                                             <input
                                                 type="text"
                                                 placeholder="What are you looking for?"
-                                                className="bg-transparent border-none focus:ring-0 focus:outline-none focus:border-transparent outline-none ring-0 w-full text-slate-900 font-bold placeholder:text-slate-400 text-lg caret-primary appearance-none"
+                                                className="bg-transparent border-none focus:ring-0 focus:outline-none focus:border-transparent outline-none ring-0 w-full text-white font-bold placeholder:text-white/40 text-lg caret-secondary appearance-none"
                                                 value={heroSearch}
                                                 onChange={(e) => setHeroSearch(e.target.value)}
                                             />
                                         </div>
-                                        <div className="w-px bg-slate-200 my-2"></div>
-                                        <div className="flex-1 flex items-center px-6 h-14 bg-transparent rounded-[1.5rem] group focus-within:bg-slate-50 transition-colors">
-                                            <MapPin className="text-slate-400 mr-3 group-focus-within:text-primary transition-colors flex-shrink-0" />
+                                        <div className="w-px bg-white/10 my-2"></div>
+                                        <div className="flex-1 flex items-center px-6 h-14 bg-transparent rounded-[1.5rem] group focus-within:bg-white/10 transition-colors">
+                                            <MapPin className="text-white/40 mr-3 group-focus-within:text-secondary transition-colors flex-shrink-0" />
                                             <select
-                                                className="bg-transparent border-none focus:ring-0 focus:outline-none focus:border-transparent outline-none ring-0 w-full text-slate-900 font-bold cursor-pointer text-lg appearance-none"
+                                                className="bg-transparent border-none focus:ring-0 focus:outline-none focus:border-transparent outline-none ring-0 w-full text-white font-bold cursor-pointer text-lg appearance-none [&>option]:text-slate-900"
                                                 value={heroLocation}
                                                 onChange={(e) => setHeroLocation(e.target.value)}
                                             >
@@ -275,29 +274,29 @@ const Home: React.FC = () => {
                                                 ))}
                                             </select>
                                         </div>
-                                        <button type="submit" className="bg-primary hover:bg-primary/90 text-white px-8 h-14 rounded-[1.5rem] font-bold text-lg transition-all shadow-lg hover:shadow-primary/30 active:scale-95">
+                                        <button type="submit" className="bg-secondary hover:bg-white hover:text-primary text-white px-8 h-14 rounded-[1.5rem] font-bold text-lg transition-all shadow-lg hover:shadow-xl active:scale-95">
                                             Search
                                         </button>
                                     </div>
                                 </form>
 
                                 {/* Stats Strip */}
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto mt-12 md:mt-16 pt-8 border-t border-slate-100">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto mt-12 md:mt-16 pt-8 border-t border-white/10">
                                     <div className="text-center">
-                                        <div className="text-2xl md:text-3xl font-extrabold text-gray-900">{offers.length}+</div>
-                                        <div className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wide mt-1">Active Offers</div>
+                                        <div className="text-2xl md:text-3xl font-extrabold text-white">{offers.length}+</div>
+                                        <div className="text-xs md:text-sm font-bold text-white/60 uppercase tracking-wide mt-1">Active Offers</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-2xl md:text-3xl font-extrabold text-gray-900">{shops.length}+</div>
-                                        <div className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wide mt-1">Verified Shops</div>
+                                        <div className="text-2xl md:text-3xl font-extrabold text-white">{shops.length}+</div>
+                                        <div className="text-xs md:text-sm font-bold text-white/60 uppercase tracking-wide mt-1">Verified Shops</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-2xl md:text-3xl font-extrabold text-gray-900">{jobs.length}+</div>
-                                        <div className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wide mt-1">Local Jobs</div>
+                                        <div className="text-2xl md:text-3xl font-extrabold text-white">{jobs.length}+</div>
+                                        <div className="text-xs md:text-sm font-bold text-white/60 uppercase tracking-wide mt-1">Local Jobs</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-2xl md:text-3xl font-extrabold text-gray-900">8+</div>
-                                        <div className="text-xs md:text-sm font-bold text-gray-500 uppercase tracking-wide mt-1">Locations</div>
+                                        <div className="text-2xl md:text-3xl font-extrabold text-white">8+</div>
+                                        <div className="text-xs md:text-sm font-bold text-white/60 uppercase tracking-wide mt-1">Locations</div>
                                     </div>
                                 </div>
                             </div>
