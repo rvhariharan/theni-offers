@@ -25,6 +25,8 @@ const Navbar = () => {
     const isShopsPage = location.pathname.startsWith('/shops');
     const isJobsPage = location.pathname.startsWith('/jobs');
     const isOffersPage = location.pathname.startsWith('/offers');
+    const isAboutPage = location.pathname === '/about';
+    const isHomePage = location.pathname === '/';
     const isListPage = isShopsPage || isJobsPage || isOffersPage;
 
     // Get context name for placeholder
@@ -32,6 +34,7 @@ const Navbar = () => {
         if (isShopsPage) return 'Shops';
         if (isJobsPage) return 'Jobs';
         if (isOffersPage) return 'Offers';
+        if (isAboutPage || isHomePage) return 'Offers, Shops & Jobs';
         return 'Offers & Shops'; // Default fallback
     };
 
@@ -55,6 +58,7 @@ const Navbar = () => {
         setIsOpen(false);
         setShowResults(false);
         setPopupResults([]);
+        setSearchMessage('');
     }, [location.pathname]); // Only depend on path changing
 
     // Close search on clicking outside
@@ -100,24 +104,49 @@ const Navbar = () => {
             return;
         }
 
-        // Case 2: Non-List Pages -> API Search in Popup
         setIsSearching(true);
         setSearchMessage('');
         setShowResults(true);
 
         try {
-            const [offers, shops] = await Promise.all([
-                api.getOffers({ search: searchTerm }),
-                api.getShops({ search: searchTerm })
+            // Check all categories for broader context handling (specifically for About/Home page auto-nav)
+            const [jobs, shops, offers] = await Promise.all([
+                api.getJobs({ search: searchTerm }),
+                api.getShops({ search: searchTerm }),
+                api.getOffers({ search: searchTerm })
             ]);
 
+            // Case 2: About Page OR Home Page -> Auto Navigate based on type priority
+            if (isAboutPage || isHomePage) {
+                if (jobs.length > 0) {
+                    navigate(`/jobs?search=${encodeURIComponent(searchTerm)}`);
+                    setIsSearchOpen(false);
+                    return;
+                }
+                if (shops.length > 0) {
+                    navigate(`/shops?search=${encodeURIComponent(searchTerm)}`);
+                    setIsSearchOpen(false);
+                    return;
+                }
+                if (offers.length > 0) {
+                    navigate(`/offers?search=${encodeURIComponent(searchTerm)}`);
+                    setIsSearchOpen(false);
+                    return;
+                }
+                // If nothing found, fall through to show "No results" in popup
+            }
+
+            // Case 3: Other Pages (Fallback) -> Show Results in Popup
             const combined = [
-                ...offers.slice(0, 3).map(o => ({ ...o, type: 'offer' })),
-                ...shops.slice(0, 3).map(s => ({ ...s, type: 'shop' }))
+                ...jobs.slice(0, 2).map(j => ({ ...j, type: 'job' })),
+                ...shops.slice(0, 2).map(s => ({ ...s, type: 'shop' })),
+                ...offers.slice(0, 2).map(o => ({ ...o, type: 'offer' }))
             ];
 
             setPopupResults(combined);
-            if (combined.length === 0) setSearchMessage('No results found.');
+            if (combined.length === 0) {
+                setSearchMessage('No results found for your search.');
+            }
         } catch (error) {
             console.error("Search error", error);
             setSearchMessage('Error searching.');
@@ -231,12 +260,12 @@ const Navbar = () => {
                                                             }}
                                                             className="px-4 py-3 hover:bg-slate-50 cursor-pointer flex items-center gap-3 border-b border-gray-50 last:border-0 transition-colors"
                                                         >
-                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${item.type === 'shop' ? 'bg-blue-100 text-blue-600' : 'bg-orange-100 text-orange-600'}`}>
-                                                                {item.type === 'shop' ? <Store size={16} /> : <Tag size={16} />}
+                                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${item.type === 'shop' ? 'bg-blue-100 text-blue-600' : item.type === 'job' ? 'bg-green-100 text-green-600' : 'bg-orange-100 text-orange-600'}`}>
+                                                                {item.type === 'shop' ? <Store size={16} /> : item.type === 'job' ? <Briefcase size={16} /> : <Tag size={16} />}
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="text-sm font-bold text-gray-800 truncate">{item.title || item.name}</div>
-                                                                <div className="text-xs text-gray-500 truncate">{item.description}</div>
+                                                                <div className="text-xs text-gray-500 truncate">{item.description || item.companyName}</div>
                                                             </div>
                                                         </div>
                                                     ))}

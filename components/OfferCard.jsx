@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Eye, Percent, Clock } from 'lucide-react';
 
-const OfferCard = ({ offer, shopName, onViewClick }) => {
+const OfferCard = ({ offer, shopName, onViewClick, showVisitShop = true }) => {
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     };
@@ -75,13 +75,15 @@ const OfferCard = ({ offer, shopName, onViewClick }) => {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Link
-                            to={`/shops/${offer.shopId}`}
-                            onClick={(e) => e.stopPropagation()}
-                            className="bg-white border border-gray-200 hover:bg-primary hover:text-white text-gray-900 text-xs font-bold px-3 py-2 rounded-full transition-colors whitespace-nowrap shadow-sm"
-                        >
-                            Visit Shop
-                        </Link>
+                        {showVisitShop && (
+                            <Link
+                                to={`/shops/${offer.shopId}`}
+                                onClick={(e) => e.stopPropagation()}
+                                className="bg-white border border-gray-200 hover:bg-primary hover:text-white text-gray-900 text-xs font-bold px-3 py-2 rounded-full transition-colors whitespace-nowrap shadow-sm"
+                            >
+                                Visit Shop
+                            </Link>
+                        )}
                         <button
                             onClick={(e) => { e.stopPropagation(); onViewClick && onViewClick(offer); }}
                             className="w-10 h-10 rounded-full bg-primary/5 hover:bg-secondary hover:text-white text-primary flex items-center justify-center transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1 group/btn"
@@ -97,3 +99,5 @@ const OfferCard = ({ offer, shopName, onViewClick }) => {
 };
 
 export default OfferCard;
+
+

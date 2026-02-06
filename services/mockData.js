@@ -230,7 +230,7 @@ export const mockShops = [
         image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800',
         logo: 'https://ui-avatars.com/api/?name=Royal+Fitness&background=14b8a6&color=fff&size=256',
         rating: 4.5,
-        socialMedia: {
+        socialMedia: { // sample data
             instagram: 'https://instagram.com',
             facebook: 'https://facebook.com',
             whatsapp: '919876543219',
@@ -295,13 +295,49 @@ export const mockShops = [
         subCategory: 'Men',
         description: 'Exclusive mens wear collection.',
         address: 'Bypass Road, Theni',
-        area: 'Theni Main',
+        area: 'Theni Main', //search bar
         contactNumber: '9876543223',
         isPremium: true,
         isVerified: true,
         image: 'https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&q=80&w=800',
         logo: 'https://ui-avatars.com/api/?name=Trends+Men&background=111827&color=fff&size=256',
         rating: 4.5
+    },
+    {
+        id: 's15',
+        name: 'SKP Vehicale Insurance',
+        category: 'Professional Services',
+        subCategory: 'Insurance Agents',
+        description: 'Instant special offer will be provided for all your vehicle insurance',
+        address: 'Near Nadar Mess, Cumbum',
+        area: 'Cumbum', //search bar
+        contactNumber: '9944815253',
+        isPremium: true,
+        isVerified: true,
+        image: 'https://cdni.autocarindia.com/utils/imageresizer.ashx?n=http://img.haymarketsac.in/autocarpro/IMG/591/61591/tata-cv.jpg&w=750&h=490&q=75&c=1',
+        logo: 'https://ui-avatars.com/api/?name=S+K&background=111827&color=fff&size=256',
+        rating: 4.5
+    },
+    {
+        id: 's16',
+        name: 'Navi Promotions',
+        category: 'Creative, Media & Printing',
+        subCategory: 'Digital Marketing Agencies',
+        description: 'Pillar of Your Business',
+        address: 'Veera Balaji Nagar, Palanichettipatti, Theni',
+        area: 'Theni Main', //search bar
+        contactNumber: '9500756881',
+        isPremium: true,
+        isVerified: true,
+        image: 'https://i.pinimg.com/1200x/f3/b7/17/f3b717acf911b88a5667730c664b2fd7.jpg',
+        logo: 'https://ui-avatars.com/api/?name=N+P&background=111827&color=fff&size=256',
+        rating: 4.5,
+        socialMedia: {
+            website: 'https://navipromotions.in',
+            whatsapp: '919500756881',
+            facebook: 'https://www.facebook.com/navipromotions.in',
+            instagram: 'https://www.instagram.com/navipromotions.in',
+        }
     }
 ];
 
@@ -583,38 +619,6 @@ export const mockOffers = [
         originalPrice: 1500,
         offerPrice: 999,
         code: "HEALTH999"
-    },
-    {
-        id: 'o18',
-        title: 'JCB',
-        description: 'minimum 2 hours booking ₹999.',
-        discountPercentage: 50,
-        validUntil: '2024-12-31',
-        category: 'Real Estate & Construction',
-        subCategory: 'JCB',
-        shopId: 's15',
-        location: 'Periyakulam',
-        isSponsored: false,
-        image: 'https://wallpapercave.com/wp/wp2100850.jpg',
-        originalPrice: 2000,
-        offerPrice: 1500,
-        code: "JCB10"
-    },
-    {
-        id: 'o19',
-        title: 'Crane',
-        description: 'minimum 1 hours booking ₹1500. 9 Ton capacity to 50 Ton capacity',
-        discountPercentage: 50,
-        validUntil: '2024-12-31',
-        category: 'Real Estate & Construction',
-        subCategory: 'Crane',
-        shopId: 's15',
-        location: 'Periyakulam',
-        isSponsored: false,
-        image: 'https://tse4.mm.bing.net/th/id/OIP.zcGf2gsfKgqBHitoiTo_MAHaEG?rs=1&pid=ImgDetMain&o=7&rm=3',
-        originalPrice: 2000,
-        offerPrice: 999,
-        code: "CRANE10"
     }
 ];
 

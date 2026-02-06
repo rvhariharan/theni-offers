@@ -57,7 +57,6 @@ export const api = {
     },
 
     getShopById: async (id) => {
-        await delay(200);
         return mockShops.find(s => s.id === id);
     },
 
@@ -99,5 +98,10 @@ export const api = {
         await delay(800);
         console.log("Form Submitted:", data);
         return { success: true };
+    },
+
+    getOffersByShopId: async (shopId) => {
+        // await delay(100); 
+        return mockOffers.filter(o => o.shopId === shopId);
     }
 };

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { api } from '../services/api';
 import html2canvas from 'html2canvas';
 
-const OfferModal = ({ offer, onClose }) => {
+const OfferModal = ({ offer, onClose, showVisitShop = true }) => {
     const [shop, setShop] = useState();
     const ticketRef = useRef(null);
     const [isDownloading, setIsDownloading] = useState(false);
@@ -178,12 +178,14 @@ const OfferModal = ({ offer, onClose }) => {
                         </button>
 
                         <div className="grid grid-cols-2 gap-3">
-                            <Link
-                                to={`/shops/${offer.shopId}`}
-                                className="bg-primary text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm hover:bg-white hover:text-primary border border-transparent hover:border-primary transition-colors"
-                            >
-                                Visit Shop
-                            </Link>
+                            {showVisitShop && (
+                                <Link
+                                    to={`/shops/${offer.shopId}`}
+                                    className="bg-primary text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm hover:bg-white hover:text-primary border border-transparent hover:border-primary transition-colors"
+                                >
+                                    Visit Shop
+                                </Link>
+                            )}
                             <a
                                 href={`tel:${shop?.contactNumber}`}
                                 className="bg-primary text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm hover:bg-white hover:text-primary border border-transparent hover:border-primary transition-colors"
