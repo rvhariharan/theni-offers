@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
     // CONFIGURATION:
     // For Hostinger (Root Domain): use '/'
     // For GitHub Pages: use '/theni-offers/'
-    const basePath = '/theni-offers/';
+    const basePath = '/';
 
     return {
         base: basePath,
