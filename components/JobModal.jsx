@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { X, MapPin, Building2, Banknote, Clock, CheckCircle2, Briefcase, User, Mail, Phone, Upload, ChevronRight } from 'lucide-react';
+import { X, MapPin, Building2, Banknote, Clock, CheckCircle2, Briefcase, User, Mail, Phone, ChevronRight } from 'lucide-react';
 import { api } from '../services/api';
 
 const JobModal = ({ job, onClose }) => {
     const [isApplying, setIsApplying] = useState(false);
     const [shop, setShop] = useState(null);
+    const [formData, setFormData] = useState({
+        name: '',
+        phone: '',
+        email: ''
+    });
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -18,10 +23,60 @@ const JobModal = ({ job, onClose }) => {
         };
     }, [job]);
 
-    const handleApply = (e) => {
+    const handleApply = async (e) => {
         e.preventDefault();
-        // Mock Application
-        alert("Application functionality coming soon!");
+        if (!formData.name || !formData.phone) {
+            alert("Please provide at least your Full Name and Phone Number.");
+            return;
+        }
+
+        setIsApplying(true);
+
+        const mockEmail = job.contactEmail || `careers@${job.companyName.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`;
+
+        const submissionJSON = {
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email || '',
+            jobId: job.id,
+            jobTitle: job.title,
+            companyName: job.companyName,
+            shopEmail: mockEmail
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/apply', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(submissionJSON)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                const textMessage = `*New Job Application*\n\n*Job:* ${job.title}\n*Company:* ${job.companyName}\n\n*Applicant Details:*\n*Name:* ${formData.name}\n*Phone:* ${formData.phone}\n*Email:* ${formData.email || 'N/A'}`;
+                const subject = `Job Application: ${job.title} - ${formData.name}`;
+
+                // Pop open Mail App only
+                const mailToUrl = `mailto:${mockEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(textMessage)}`;
+
+                alert(`Success! Your application has been logged.\n\nWe will now open your Email client so you can contact the employer directly!`);
+
+                setTimeout(() => {
+                    window.location.href = mailToUrl;
+                    setIsApplying(false);
+                    onClose();
+                }, 500);
+
+            } else {
+                alert("Server response: " + data.message);
+                setIsApplying(false);
+            }
+        } catch (error) {
+            alert("Connection Error. Please make sure your Node.js backend server is running.");
+            console.error(error);
+            setIsApplying(false);
+        }
     };
 
     return (
@@ -130,14 +185,16 @@ const JobModal = ({ job, onClose }) => {
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Full Name</label>
                                         <div className="relative">
                                             <User className="absolute left-4 top-3.5 text-slate-400" size={18} />
-                                            <input type="text" placeholder="John Doe" className="w-full pl-11 pr-4 py-3 bg-slate-50 border-transparent focus:border-primary focus:bg-white rounded-xl font-bold text-sm transition-all outline-none border-2" />
+                                            <input type="text" placeholder="John Doe" className="w-full pl-11 pr-4 py-3 bg-slate-50 border-transparent focus:border-primary focus:bg-white rounded-xl font-bold text-sm transition-all outline-none border-2" 
+                                                value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required/>
                                         </div>
                                     </div>
                                     <div className="space-y-1">
                                         <label className="text-xs font-bold text-slate-500 uppercase ml-1">Phone Number</label>
                                         <div className="relative">
                                             <Phone className="absolute left-4 top-3.5 text-slate-400" size={18} />
-                                            <input type="tel" placeholder="+91 98765 43210" className="w-full pl-11 pr-4 py-3 bg-slate-50 border-transparent focus:border-primary focus:bg-white rounded-xl font-bold text-sm transition-all outline-none border-2" />
+                                            <input type="tel" placeholder="+91 98765 43210" className="w-full pl-11 pr-4 py-3 bg-slate-50 border-transparent focus:border-primary focus:bg-white rounded-xl font-bold text-sm transition-all outline-none border-2" 
+                                                value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} required/>
                                         </div>
                                     </div>
                                 </div>
@@ -145,17 +202,23 @@ const JobModal = ({ job, onClose }) => {
                                     <label className="text-xs font-bold text-slate-500 uppercase ml-1">Email (Optional)</label>
                                     <div className="relative">
                                         <Mail className="absolute left-4 top-3.5 text-slate-400" size={18} />
-                                        <input type="email" placeholder="john@example.com" className="w-full pl-11 pr-4 py-3 bg-slate-50 border-transparent focus:border-primary focus:bg-white rounded-xl font-bold text-sm transition-all outline-none border-2" />
+                                        <input type="email" placeholder="john@example.com" className="w-full pl-11 pr-4 py-3 bg-slate-50 border-transparent focus:border-primary focus:bg-white rounded-xl font-bold text-sm transition-all outline-none border-2" 
+                                            value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
                                     </div>
                                 </div>
-                                <div className="space-y-1">
-                                    <label className="text-xs font-bold text-slate-500 uppercase ml-1">Resume / CV</label>
-                                    <div className="border-2 border-dashed border-slate-200 rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all group">
-                                        <div className="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
-                                            <Upload className="text-primary" size={20} />
-                                        </div>
-                                        <p className="text-sm font-bold text-slate-600">Click to upload resume</p>
-                                        <p className="text-xs text-slate-400">PDF, DOCX (Max 2MB)</p>
+                                {/* Resume UI removed entirely as requested */}
+
+                                <div className="bg-blue-50/50 rounded-xl p-4 mt-2 border border-blue-100 flex flex-col items-center text-center">
+                                    <p className="text-xs font-bold text-slate-500 uppercase mb-2">Application Will Be Sent this Mail:</p>
+                                    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                                        <a href={`tel:+${job.contactPhone || shop?.socialMedia?.whatsapp || shop?.contactNumber || '919000000000'}`} className="flex items-center gap-1.5 text-slate-700 font-bold text-sm bg-white px-3 py-1.5 rounded-lg shadow-sm border border-slate-100 hover:text-blue-600 hover:border-blue-200 transition-colors cursor-pointer">
+                                            <Phone size={14} className="text-blue-500"/>
+                                            +{job.contactPhone || shop?.socialMedia?.whatsapp || shop?.contactNumber || '919000000000'}
+                                        </a>
+                                        <a href={`mailto:${job.contactEmail || `careers@${job.companyName.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`}`} className="flex items-center gap-1.5 text-slate-700 font-bold text-sm bg-white px-3 py-1.5 rounded-lg shadow-sm border border-slate-100 hover:text-blue-600 hover:border-blue-200 transition-colors cursor-pointer">
+                                            <Mail size={14} className="text-blue-500"/>
+                                            {job.contactEmail || `careers@${job.companyName.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`}
+                                        </a>
                                     </div>
                                 </div>
 

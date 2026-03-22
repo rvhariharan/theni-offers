@@ -635,7 +635,9 @@ export const mockJobs = [
         subCategory: 'Mobiles',
         isFeatured: true,
         postedDate: '2024-05-15',
-        description: 'Looking for an experienced sales executive with good communication skills in Tamil and English.'
+        description: 'Looking for an experienced sales executive with good communication skills in Tamil and English.',
+        contactPhone: '7639554251',
+        contactEmail: 'rvhariharan2004@gmail.com'
     },
     {
         id: 'j2',
@@ -649,7 +651,9 @@ export const mockJobs = [
         subCategory: 'Women',
         isFeatured: true,
         postedDate: '2024-05-10',
-        description: 'Creative fashion designer needed for designing saree blouses and churidars.'
+        description: 'Creative fashion designer needed for designing saree blouses and churidars.',
+        contactPhone: '7639554251',
+        contactEmail: 'design.hr@example.com'
     },
     {
         id: 'j3',
@@ -663,7 +667,9 @@ export const mockJobs = [
         subCategory: 'Supermarket',
         isFeatured: false,
         postedDate: '2024-05-18',
-        description: 'Two-wheeler required. Flexible timings for delivery partners.'
+        description: 'Two-wheeler required. Flexible timings for delivery partners.',
+        contactPhone: '7639554251',
+        contactEmail: 'logistics.hr@example.com'
     },
     {
         id: 'j4',
@@ -677,7 +683,9 @@ export const mockJobs = [
         subCategory: 'Restaurant',
         isFeatured: false,
         postedDate: '2024-05-12',
-        description: 'Experienced chef needed for South Indian and Chinese cuisine.'
+        description: 'Experienced chef needed for South Indian and Chinese cuisine.',
+        contactPhone: '7639554251',
+        contactEmail: 'kitchen.hr@example.com'
     },
     {
         id: 'j5',
@@ -691,7 +699,9 @@ export const mockJobs = [
         subCategory: 'Car Service',
         isFeatured: false,
         postedDate: '2024-05-14',
-        description: 'Car mechanic with minimum 2 years experience in multi-brand car service.'
+        description: 'Car mechanic with minimum 2 years experience in multi-brand car service.',
+        contactPhone: '7639554251',
+        contactEmail: 'mechanics.hr@example.com'
     },
     {
         id: 'j6',
@@ -705,7 +715,9 @@ export const mockJobs = [
         subCategory: 'Gold',
         isFeatured: true,
         postedDate: '2024-05-16',
-        description: 'B.Com graduate with Tally knowledge required for managing daily accounts.'
+        description: 'B.Com graduate with Tally knowledge required for managing daily accounts.',
+        contactPhone: '7639554251',
+        contactEmail: 'finance.hr@example.com'
     }
 ];
 
