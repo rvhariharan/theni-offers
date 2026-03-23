@@ -4,12 +4,14 @@ import { api } from '../services/api';
 import OfferCard from '../components/OfferCard';
 import OfferModal from '../components/OfferModal';
 import CategoryFilter from '../components/CategoryFilter';
-import { AREAS } from '../services/mockData';
+import { AREAS, mockOffers } from '../services/mockData';
+import axios from 'axios';
+import { API_BASE_URL } from '../services/apiConfig';
 import { Search, MapPin, Tag, SlidersHorizontal, RotateCcw, ChevronRight } from 'lucide-react';
 import AdBanner from '../components/AdBanner';
 
 const OffersPage = () => {
-    const [offers, setOffers] = useState([]);
+    const [displayData, setDisplayData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedOffer, setSelectedOffer] = useState(null);
@@ -32,8 +34,40 @@ const OffersPage = () => {
     useEffect(() => {
         const fetchOffers = async () => {
             setLoading(true);
-            const data = await api.getOffers(filters);
-            setOffers(data);
+            try {
+                // Filter dummy array
+                let dummyData = [...mockOffers];
+                if (filters.category && filters.category !== 'All') dummyData = dummyData.filter(o => o.category === filters.category);
+                if (filters.subCategory && filters.subCategory !== 'All') dummyData = dummyData.filter(o => o.subCategory === filters.subCategory);
+                if (filters.location) dummyData = dummyData.filter(o => o.location === filters.location);
+                if (filters.search) {
+                    const term = filters.search.toLowerCase();
+                    dummyData = dummyData.filter(o =>
+                        o.title.toLowerCase().includes(term) ||
+                        o.description.toLowerCase().includes(term)
+                    );
+                }
+
+                // Initial set
+                setDisplayData(dummyData);
+
+                // Build query params
+                const query = new URLSearchParams();
+                if (filters.category && filters.category !== 'All') query.append('category', filters.category);
+                if (filters.subCategory && filters.subCategory !== 'All') query.append('subCategory', filters.subCategory);
+                if (filters.location) query.append('location', filters.location);
+                if (filters.search) query.append('search', filters.search);
+                const queryString = query.toString() ? `?${query.toString()}` : '';
+
+                const res = await axios.get(`${API_BASE_URL}/offers${queryString}`);
+                const fetchedData = res.data;
+                
+                // Combine and update
+                setDisplayData([...dummyData, ...fetchedData]);
+            } catch (err) {
+                console.error("Error fetching offers from database:", err);
+                // Even on error, keep dummy data
+            }
             setLoading(false);
         };
         fetchOffers();
@@ -72,8 +106,8 @@ const OffersPage = () => {
     };
 
     // Split offers for ad insertion
-    const firstHalf = offers.slice(0, 6);
-    const secondHalf = offers.slice(6);
+    const firstHalf = displayData.slice(0, 6);
+    const secondHalf = displayData.slice(6);
 
     return (
         <div className="min-h-screen bg-slate-50 pb-12">
@@ -168,7 +202,7 @@ const OffersPage = () => {
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-xl font-bold text-gray-900 tracking-tight flex items-center gap-2">
                         {filters.subCategory && filters.subCategory !== 'All' ? filters.subCategory : filters.category ? filters.category : 'All'} Offers
-                        <span className="text-gray-400 font-medium text-sm">({offers.length})</span>
+                        <span className="text-gray-400 font-medium text-sm">({displayData.length})</span>
                     </h1>
                 </div>
 
@@ -185,7 +219,7 @@ const OffersPage = () => {
                             </div>
                         ))}
                     </div>
-                ) : offers.length > 0 ? (
+                ) : displayData.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-fadeIn">
                         {/* First Half of Offers */}
                         {firstHalf.map(offer => (

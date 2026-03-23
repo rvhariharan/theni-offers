@@ -23,7 +23,7 @@ const JobModal = ({ job, onClose }) => {
         };
     }, [job]);
 
-    const handleApply = async (e) => {
+    const handleApply = (e) => {
         e.preventDefault();
         if (!formData.name || !formData.phone) {
             alert("Please provide at least your Full Name and Phone Number.");
@@ -32,51 +32,31 @@ const JobModal = ({ job, onClose }) => {
 
         setIsApplying(true);
 
-        const mockEmail = job.contactEmail || `careers@${job.companyName.toLowerCase().replace(/[^a-z0-9]/g, '')}.com`;
+        const recipientEmail = job.contactEmail || `hr@example.com`;
+        const subject = `Application for ${job.title} at ${job.companyName}`;
+        const body = `Hello ${job.companyName} Team,
 
-        const submissionJSON = {
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email || '',
-            jobId: job.id,
-            jobTitle: job.title,
-            companyName: job.companyName,
-            shopEmail: mockEmail
-        };
+I would like to apply for the ${job.title} position.
 
-        try {
-            const response = await fetch('http://localhost:5000/api/apply', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(submissionJSON)
-            });
+My Details:
+Name: ${formData.name}
+Phone: ${formData.phone}
+Email: ${formData.email || 'N/A'}
 
-            const data = await response.json();
+Looking forward to hearing from you.
 
-            if (data.success) {
-                const textMessage = `*New Job Application*\n\n*Job:* ${job.title}\n*Company:* ${job.companyName}\n\n*Applicant Details:*\n*Name:* ${formData.name}\n*Phone:* ${formData.phone}\n*Email:* ${formData.email || 'N/A'}`;
-                const subject = `Job Application: ${job.title} - ${formData.name}`;
+Regards,
+${formData.name}`;
 
-                // Pop open Mail App only
-                const mailToUrl = `mailto:${mockEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(textMessage)}`;
+        const mailToUrl = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-                alert(`Success! Your application has been logged.\n\nWe will now open your Email client so you can contact the employer directly!`);
-
-                setTimeout(() => {
-                    window.location.href = mailToUrl;
-                    setIsApplying(false);
-                    onClose();
-                }, 500);
-
-            } else {
-                alert("Server response: " + data.message);
-                setIsApplying(false);
-            }
-        } catch (error) {
-            alert("Connection Error. Please make sure your Node.js backend server is running.");
-            console.error(error);
+        window.location.href = mailToUrl;
+        
+        // Brief delay to allow the browser to process the mailto link before closing/resetting
+        setTimeout(() => {
             setIsApplying(false);
-        }
+            onClose();
+        }, 1000);
     };
 
     return (

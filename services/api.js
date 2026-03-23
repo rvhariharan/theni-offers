@@ -1,107 +1,88 @@
-import { mockOffers, mockShops, mockJobs, mockAds } from './mockData';
+import axios from 'axios';
+import { API_BASE_URL } from './apiConfig';
+import { mockAds, mockShops, mockOffers, mockJobs } from './mockData';
 
-// Simulate network delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-// NOTE: In production, switch the implementation below to use fetch() calls to the backend.
-// Example: return fetch('/api/offers').then(res => res.json());
+// Helper to construct query string
+const buildQuery = (filters) => {
+    if (!filters) return '';
+    const query = new URLSearchParams();
+    Object.keys(filters).forEach(key => {
+        if (filters[key] && filters[key] !== 'All') {
+            query.append(key, filters[key]);
+        }
+    });
+    const queryString = query.toString();
+    return queryString ? `?${queryString}` : '';
+};
 
 export const api = {
     getOffers: async (filters) => {
-        await delay(300);
-        let results = [...mockOffers];
-
-        if (filters) {
-            if (filters.category && filters.category !== 'All') {
-                results = results.filter(o => o.category === filters.category);
-            }
-            if (filters.subCategory && filters.subCategory !== 'All') {
-                results = results.filter(o => o.subCategory === filters.subCategory);
-            }
-            if (filters.location) {
-                results = results.filter(o => o.location === filters.location);
-            }
-            if (filters.search) {
-                const term = filters.search.toLowerCase();
-                results = results.filter(o =>
-                    o.title.toLowerCase().includes(term) ||
-                    o.description.toLowerCase().includes(term)
-                );
-            }
+        try {
+            const response = await axios.get(`${API_BASE_URL}/offers${buildQuery(filters)}`);
+            return [...mockOffers, ...response.data];
+        } catch (error) {
+            console.error('Error fetching offers:', error);
+            return [...mockOffers];
         }
-        // Sort: Sponsored first, then by date (mock)
-        return results.sort((a, b) => (Number(b.isSponsored) - Number(a.isSponsored)));
     },
 
     getShops: async (filters) => {
-        await delay(300);
-        let results = [...mockShops];
-
-        if (filters) {
-            if (filters.category && filters.category !== 'All') {
-                results = results.filter(s => s.category === filters.category);
-            }
-            if (filters.subCategory && filters.subCategory !== 'All') {
-                results = results.filter(s => s.subCategory === filters.subCategory);
-            }
-            if (filters.location) {
-                results = results.filter(s => s.area === filters.location);
-            }
-            if (filters.search) {
-                const term = filters.search.toLowerCase();
-                results = results.filter(s => s.name.toLowerCase().includes(term));
-            }
+        try {
+            const response = await axios.get(`${API_BASE_URL}/services${buildQuery(filters)}`);
+            return [...mockShops, ...response.data];
+        } catch (error) {
+            console.error('Error fetching services:', error);
+            return [...mockShops];
         }
-        // Sort: Premium first
-        return results.sort((a, b) => (Number(b.isPremium) - Number(a.isPremium)));
     },
 
     getShopById: async (id) => {
-        return mockShops.find(s => s.id === id);
+        try {
+            // Check dummy data first
+            const mockShop = mockShops.find(s => String(s.id) === String(id));
+            if (mockShop) return mockShop;
+
+            // Otherwise check database
+            const response = await axios.get(`${API_BASE_URL}/services/${id}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching service:', error);
+            return null;
+        }
     },
 
     getJobs: async (filters) => {
-        await delay(300);
-        let results = [...mockJobs];
-
-        if (filters) {
-            if (filters.category && filters.category !== 'All') {
-                results = results.filter(j => j.category === filters.category);
-            }
-            if (filters.subCategory && filters.subCategory !== 'All') {
-                results = results.filter(j => j.subCategory === filters.subCategory);
-            }
-            if (filters.location) {
-                results = results.filter(j => j.location === filters.location);
-            }
-            if (filters.type && filters.type !== 'All') {
-                results = results.filter(j => j.type === filters.type);
-            }
-            if (filters.search) {
-                const term = filters.search.toLowerCase();
-                results = results.filter(j =>
-                    j.title.toLowerCase().includes(term) ||
-                    j.companyName.toLowerCase().includes(term)
-                );
-            }
+        try {
+            const response = await axios.get(`${API_BASE_URL}/jobs${buildQuery(filters)}`);
+            return [...mockJobs, ...response.data];
+        } catch (error) {
+            console.error('Error fetching jobs:', error);
+            return [...mockJobs];
         }
-        // Sort: Featured first
-        return results.sort((a, b) => (Number(b.isFeatured) - Number(a.isFeatured)));
     },
 
     getAds: async (placement) => {
-        await delay(100);
         return mockAds.filter(a => a.placement === placement && a.isActive);
     },
 
     submitContact: async (data) => {
-        await delay(800);
-        console.log("Form Submitted:", data);
-        return { success: true };
+        try {
+            const response = await axios.post(`${API_BASE_URL}/contact`, data);
+            return response.data;
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            return { success: false, error };
+        }
     },
 
     getOffersByShopId: async (shopId) => {
-        // await delay(100); 
-        return mockOffers.filter(o => o.shopId === shopId);
+        try {
+            const mockShopOffers = mockOffers.filter(o => String(o.shopId) === String(shopId));
+            const response = await axios.get(`${API_BASE_URL}/offers?shopId=${shopId}`);
+            return [...mockShopOffers, ...response.data];
+        } catch (error) {
+            console.error('Error fetching offers by shop id:', error);
+            return mockOffers.filter(o => String(o.shopId) === String(shopId));
+        }
     }
 };

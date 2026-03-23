@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
-import { CATEGORIES } from '../services/mockData'; // Import CATEGORIES
+import { CATEGORIES, mockJobs } from '../services/mockData'; 
 import JobCard from '../components/JobCard';
-import JobModal from '../components/JobModal'; // Re-using modal logic
+import JobModal from '../components/JobModal'; 
+import axios from 'axios';
+import { API_BASE_URL } from '../services/apiConfig';
 import { Search, MapPin, Briefcase, Filter, RotateCcw, ChevronRight, Clock, GraduationCap, Layers } from 'lucide-react';
 
 
 const JobsPage = () => {
-    const [jobs, setJobs] = useState([]);
+    const [displayData, setDisplayData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedJob, setSelectedJob] = useState(null);
@@ -33,8 +35,58 @@ const JobsPage = () => {
     useEffect(() => {
         const fetchJobs = async () => {
             setLoading(true);
-            const data = await api.getJobs(filters);
-            setJobs(data);
+            try {
+                let dummyData = [...mockJobs];
+                if (filters.category && filters.category !== 'All') dummyData = dummyData.filter(j => j.category === filters.category);
+                if (filters.type && filters.type !== 'All') dummyData = dummyData.filter(j => j.type === filters.type);
+                if (filters.search) {
+                    const term = filters.search.toLowerCase();
+                    dummyData = dummyData.filter(j => j.title.toLowerCase().includes(term) || j.companyName.toLowerCase().includes(term));
+                }
+
+                setDisplayData(dummyData);
+
+                const query = new URLSearchParams();
+                if (filters.category && filters.category !== 'All') query.append('category', filters.category);
+                if (filters.type && filters.type !== 'All') query.append('type', filters.type);
+                if (filters.search) query.append('search', filters.search);
+                const queryString = query.toString() ? `?${query.toString()}` : '';
+
+                const res = await axios.get(`${API_BASE_URL}/jobs${queryString}`);
+                let fetchedData = Array.isArray(res.data) ? res.data : [];
+
+                const normalizeJob = (j) => ({
+                    id: j.id || j._id || String(j._id || j.id || ''),
+                    title: j.title || j.jobTitle || j.name || '',
+                    companyName: j.companyName || j.company || j.shopName || '',
+                    type: j.type || j.employmentType || '',
+                    location: j.location || j.area || j.city || '',
+                    category: j.category || j.jobCategory || '',
+                    subCategory: j.subCategory || j.sub_category || j.subcategory || '',
+                    contactPhone: j.contactPhone || j.contactPhoneNumber || j.phone || '',
+                    contactEmail: j.contactEmail || j.email || j.contactEmail || '',
+                    ...j
+                });
+
+                fetchedData = fetchedData.map(normalizeJob);
+
+                // Case-insensitive filter application for fetched jobs
+                const norm = (v) => (v || '').toString().trim().toLowerCase();
+                let filteredFetched = [...fetchedData];
+                if (filters.category && filters.category !== 'All') filteredFetched = filteredFetched.filter(j => norm(j.category) === norm(filters.category));
+                if (filters.type && filters.type !== 'All') filteredFetched = filteredFetched.filter(j => norm(j.type) === norm(filters.type));
+                if (filters.search) {
+                    const term = filters.search.toLowerCase();
+                    filteredFetched = filteredFetched.filter(j => (j.title || '').toLowerCase().includes(term) || (j.companyName || '').toLowerCase().includes(term));
+                }
+
+                const combined = [...dummyData, ...filteredFetched];
+                console.log('Fetched jobs from API (normalized + filtered):', filteredFetched);
+                console.log('Combined displayData (dummy + db):', combined);
+                setDisplayData(combined);
+            } catch (err) {
+                console.error("Error fetching jobs:", err);
+            }
             setLoading(false);
         };
         fetchJobs();
@@ -180,7 +232,7 @@ const JobsPage = () => {
 
                 <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">
                     Latest Openings
-                    <span className="bg-slate-100 text-slate-500 text-xs py-0.5 px-2 rounded-md">{jobs.length}</span>
+                    <span className="bg-slate-100 text-slate-500 text-xs py-0.5 px-2 rounded-md">{displayData.length}</span>
                 </h2>
 
                 {loading ? (
@@ -194,9 +246,9 @@ const JobsPage = () => {
                             </div>
                         ))}
                     </div>
-                ) : jobs.length > 0 ? (
+                ) : displayData.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slideUp">
-                        {jobs.map(job => (
+                        {console.log('jobs (displayData):', displayData) || displayData.map(job => (
                             <JobCard key={job.id} job={job} onApply={setSelectedJob} />
                         ))}
                     </div>

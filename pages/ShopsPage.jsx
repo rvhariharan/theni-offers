@@ -3,12 +3,14 @@ import { useSearchParams } from 'react-router-dom';
 import { api } from '../services/api';
 import ShopCard from '../components/ShopCard';
 import CategoryFilter from '../components/CategoryFilter';
-import { AREAS } from '../services/mockData';
+import { AREAS, mockShops } from '../services/mockData';
+import axios from 'axios';
+import { API_BASE_URL } from '../services/apiConfig';
 import { Search, MapPin, Store, BadgeCheck, RotateCcw, ChevronRight, Tag } from 'lucide-react';
 import AdBanner from '../components/AdBanner';
 
 const ShopsPage = () => {
-    const [shops, setShops] = useState([]);
+    const [displayData, setDisplayData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -34,10 +36,71 @@ const ShopsPage = () => {
     useEffect(() => {
         const fetchShops = async () => {
             setLoading(true);
-            const data = await api.getShops(filters);
-            // Client-side filtering for 'verified' as API mock might not handle it via query
-            const filteredData = verifiedOnly ? data.filter(s => s.isVerified) : data;
-            setShops(filteredData);
+            try {
+                // Filter dummy array
+                let dummyData = [...mockShops];
+                if (filters.category && filters.category !== 'All') dummyData = dummyData.filter(s => s.category === filters.category);
+                if (filters.subCategory && filters.subCategory !== 'All') dummyData = dummyData.filter(s => s.subCategory === filters.subCategory);
+                if (filters.location) dummyData = dummyData.filter(s => s.area === filters.location);
+                if (filters.search) {
+                    const term = filters.search.toLowerCase();
+                    dummyData = dummyData.filter(s => s.name.toLowerCase().includes(term));
+                }
+
+                let filteredDummy = verifiedOnly ? dummyData.filter(s => s.isVerified) : dummyData;
+                setDisplayData(filteredDummy);
+
+                // Build query string
+                const query = new URLSearchParams();
+                if (filters.category && filters.category !== 'All') query.append('category', filters.category);
+                if (filters.subCategory && filters.subCategory !== 'All') query.append('subCategory', filters.subCategory);
+                if (filters.location) query.append('location', filters.location);
+                if (filters.search) query.append('search', filters.search);
+                const queryString = query.toString() ? `?${query.toString()}` : '';
+
+                // Fetch database items
+                const res = await axios.get(`${API_BASE_URL}/services${queryString}`);
+                let fetchedData = Array.isArray(res.data) ? res.data : [];
+
+                // Normalize fields from backend to match frontend expectations
+                const normalizeShop = (s) => ({
+                    id: s.id || s._id || String(s._id || s.id || ''),
+                    name: s.name || s.title || s.shopName || '',
+                    category: s.category || s.type || '',
+                    subCategory: s.subCategory || s.sub_category || s.subcategory || '',
+                    image: s.image || (s.images && s.images[0]) || s.imageUrl || s.photo || '',
+                    logo: s.logo || s.logoUrl || s.avatar || '',
+                    contactNumber: s.contactNumber || s.phone || s.contact || s.contact_no || '',
+                    address: s.address || s.location || '',
+                    area: s.area || s.areaName || s.location || s.city || s.town || '',
+                    rating: s.rating || s.avgRating || 0,
+                    isVerified: s.isVerified || s.verified || s.is_verified || false,
+                    ...s
+                });
+
+                fetchedData = fetchedData.map(normalizeShop);
+
+                // Apply same client-side filters to fetched data (case-insensitive)
+                const norm = (v) => (v || '').toString().trim().toLowerCase();
+                let filteredFetched = [...fetchedData];
+                if (filters.category && filters.category !== 'All') filteredFetched = filteredFetched.filter(s => norm(s.category) === norm(filters.category));
+                if (filters.subCategory && filters.subCategory !== 'All') filteredFetched = filteredFetched.filter(s => norm(s.subCategory) === norm(filters.subCategory));
+                if (filters.location) filteredFetched = filteredFetched.filter(s => norm(s.area) === norm(filters.location));
+                if (filters.search) {
+                    const term = filters.search.toLowerCase();
+                    filteredFetched = filteredFetched.filter(s => (s.name || '').toLowerCase().includes(term));
+                }
+
+                filteredFetched = verifiedOnly ? filteredFetched.filter(s => s.isVerified) : filteredFetched;
+
+                const combined = [...filteredDummy, ...filteredFetched];
+                console.log('Applied filters:', filters, 'verifiedOnly:', verifiedOnly);
+                console.log('Fetched shops from API (normalized + filtered):', filteredFetched);
+                console.log('Combined displayData (dummy + db):', combined);
+                setDisplayData(combined);
+            } catch (err) {
+                console.error("Error fetching shops:", err);
+            }
             setLoading(false);
         };
         fetchShops();
@@ -71,9 +134,12 @@ const ShopsPage = () => {
         setVerifiedOnly(false);
     };
 
-    // Split shops for ad insertion
-    const firstHalf = shops.slice(0, 6);
-    const secondHalf = shops.slice(6);
+    // Split display data for ad insertion
+    const firstHalf = displayData.slice(0, 6);
+    const secondHalf = displayData.slice(6);
+
+    // Log the shops/display data before mapping so it's visible in browser console
+    console.log('shops (displayData):', displayData);
 
     return (
         <div className="min-h-screen bg-slate-50 pb-12">
@@ -181,7 +247,7 @@ const ShopsPage = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="flex justify-between items-center mb-6">
                     <h2 className="text-xl font-bold text-slate-900">
-                        {loading ? 'Loading...' : `${shops.length} Businesses Found`}
+                        {loading ? 'Loading...' : `${displayData.length} Businesses Found`}
                     </h2>
                     <span className="text-sm text-slate-500 font-medium hidden md:block">Top Rated First</span>
                 </div>
@@ -203,7 +269,7 @@ const ShopsPage = () => {
                     </div>
                 ) : (
                     <>
-                        {shops.length > 0 ? (
+                        {displayData.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fadeIn">
                                 {/* First Half */}
                                 {firstHalf.map(shop => (
