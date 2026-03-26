@@ -9,6 +9,15 @@ const OfferModal = ({ offer, onClose, showVisitShop = true }) => {
     const ticketRef = useRef(null);
     const [isDownloading, setIsDownloading] = useState(false);
 
+    // Helper to bypass CORS for Pinterest images when using html2canvas
+    const getProxiedImageUrl = (url) => {
+        if (!url) return '';
+        if (url.includes('pinimg.com')) {
+            return `https://corsproxy.io/?${encodeURIComponent(url)}`;
+        }
+        return url;
+    };
+
     useEffect(() => {
         document.body.style.overflow = 'hidden';
         const fetchShop = async () => {
@@ -30,6 +39,7 @@ const OfferModal = ({ offer, onClose, showVisitShop = true }) => {
                 useCORS: true, // Crucial for loading external images
                 scale: 2, // Higher resolution
                 backgroundColor: null, // Transparent background if rounded corners
+                allowTaint: true, // Helpful if some images still fail CORS
             });
 
             const image = canvas.toDataURL("image/png");
@@ -71,7 +81,7 @@ const OfferModal = ({ offer, onClose, showVisitShop = true }) => {
                         {/* 1. Header Image Section */}
                         <div className="relative h-64">
                             <img
-                                src={offer.image}
+                                src={getProxiedImageUrl(offer.image)}
                                 alt={offer.title}
                                 className="w-full h-full object-cover"
                                 crossOrigin="anonymous" // Important for html2canvas
@@ -84,7 +94,7 @@ const OfferModal = ({ offer, onClose, showVisitShop = true }) => {
                                     {offer.category}
                                 </div>
                                 <div className="w-12 h-12 bg-white rounded-xl p-1 shadow-lg">
-                                    {shop?.logo && <img src={shop.logo} alt="Logo" className="w-full h-full object-cover rounded-lg" crossOrigin="anonymous" />}
+                                    {shop?.logo && <img src={getProxiedImageUrl(shop.logo)} alt="Logo" className="w-full h-full object-cover rounded-lg" crossOrigin="anonymous" />}
                                 </div>
                             </div>
 
@@ -153,7 +163,7 @@ const OfferModal = ({ offer, onClose, showVisitShop = true }) => {
                             <div className="text-xs text-center text-primary/40 border-t border-primary/10 pt-4">
                                 <p className="mb-2">Show this ticket at the counter to redeem</p>
                                 <div className="flex justify-center gap-4 text-[10px] font-medium text-primary/30">
-                                    <span>#{offer.id.toUpperCase()}</span>
+                                    <span>#{String(offer._id || offer.id || '').toUpperCase().slice(-8)}</span>
                                     <span>•</span>
                                     <span>TERMS APPLY</span>
                                 </div>

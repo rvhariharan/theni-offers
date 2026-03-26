@@ -223,14 +223,14 @@ const OffersPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-fadeIn">
                         {/* First Half of Offers */}
                         {firstHalf.map(offer => (
-                            <OfferCard key={offer.id} offer={offer} onViewClick={setSelectedOffer} />
+                            <OfferCard key={offer._id || offer.id} offer={offer} onViewClick={setSelectedOffer} />
                         ))}
 
 
 
                         {/* Second Half of Offers */}
                         {secondHalf.map(offer => (
-                            <OfferCard key={offer.id} offer={offer} onViewClick={setSelectedOffer} />
+                            <OfferCard key={offer._id || offer.id} offer={offer} onViewClick={setSelectedOffer} />
                         ))}
                     </div>
                 ) : (

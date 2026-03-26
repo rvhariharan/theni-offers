@@ -77,7 +77,7 @@ const OfferCard = ({ offer, shopName, onViewClick, showVisitShop = true }) => {
                     <div className="flex items-center gap-2">
                         {showVisitShop && (
                             <Link
-                                to={`/shops/${offer.shopId}`}
+                                to={`/shops/${offer.shopId || offer.shop_id}`}
                                 onClick={(e) => e.stopPropagation()}
                                 className="bg-white border border-gray-200 hover:bg-primary hover:text-white text-gray-900 text-xs font-bold px-3 py-2 rounded-full transition-colors whitespace-nowrap shadow-sm"
                             >

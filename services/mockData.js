@@ -137,7 +137,7 @@ export const mockShops = [
         contactNumber: '9876543214',
         isPremium: false,
         isVerified: true,
-        image: 'https://images.unsplash.com/photo-1486262715619-01b80250e0dc?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/736x/6e/5b/db/6e5bdbcaaf1aaa9b4b944d35c5da469f.jpg',
         logo: 'https://ui-avatars.com/api/?name=Auto+Care&background=6366f1&color=fff&size=256',
         rating: 4.6,
         socialMedia: {
@@ -194,7 +194,7 @@ export const mockShops = [
         contactNumber: '9876543217',
         isPremium: false,
         isVerified: false,
-        image: 'https://images.unsplash.com/photo-1597872252165-4828b60d9538?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/736x/3f/a7/27/3fa72750a4cc1512e7ed2851e9ccde3a.jpg',
         logo: 'https://ui-avatars.com/api/?name=Vetri+Computers&background=3b82f6&color=fff&size=256',
         rating: 4.1,
         socialMedia: {
@@ -263,7 +263,7 @@ export const mockShops = [
         contactNumber: '9876543221',
         isPremium: true,
         isVerified: true,
-        image: 'https://images.unsplash.com/photo-1556656793-02715d8dd660?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/736x/da/13/11/da13117a2f24781890def246d1627fed.jpg',
         logo: 'https://ui-avatars.com/api/?name=Poorvika&background=ec4899&color=fff&size=256',
         rating: 4.7,
         socialMedia: {
@@ -353,9 +353,9 @@ export const mockOffers = [
         shopId: 's1',
         location: 'Theni Main',
         isSponsored: true,
-        image: 'https://images.unsplash.com/photo-1598327773204-7c3311b93a29?auto=format&fit=crop&q=80&w=800',
-        originalPrice: 20000,
-        offerPrice: 10000,
+        image: 'https://i.pinimg.com/1200x/3f/91/ef/3f91ef928439eee52d1046baa5cba6d1.jpg',
+        originalPrice: 2000,
+        offerPrice: 1000,
         terms: "Valid on Samsung and Xiaomi models only. One offer per customer.",
         code: "THENI50"
     },
@@ -370,7 +370,9 @@ export const mockOffers = [
         shopId: 's2',
         location: 'Allinagaram',
         isSponsored: true,
-        image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/1200x/1a/1b/48/1a1b48fab7c63c238958bb034daa1237.jpg',
+        originalPrice: 2000,
+        offerPrice: 1000,
         terms: "Offer applicable on sarees above ₹1000. No exchange.",
         code: "BOGO24"
     },
@@ -411,7 +413,7 @@ export const mockOffers = [
     {
         id: 'o5',
         title: 'Mens Jeans Clearance',
-        description: 'Flat ₹500 off on branded jeans.',
+        description: 'branded jeans.',
         discountPercentage: 40,
         validUntil: '2024-10-01',
         category: 'Fashion & Apparel',
@@ -419,7 +421,9 @@ export const mockOffers = [
         shopId: 's6',
         location: 'Cumbum',
         isSponsored: false,
-        image: 'https://images.unsplash.com/photo-1542272617-08f08630329e?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/1200x/de/27/e6/de27e63fc05ded07e6990abe94127f86.jpg',
+        originalPrice: 800,
+        offerPrice: 700,
         terms: "Valid on selected brands only. While stocks last.",
         code: "JEAN500"
     },
@@ -435,6 +439,8 @@ export const mockOffers = [
         location: 'Theni Main',
         isSponsored: true,
         image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?auto=format&fit=crop&q=80&w=800',
+        originalPrice: 50000,
+        offerPrice: 45000,
         terms: "Valid on purchase of 8g coins and above.",
         code: "GOLD0VA"
     },
@@ -451,7 +457,7 @@ export const mockOffers = [
         isSponsored: false,
         image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&q=80&w=800',
         originalPrice: 500,
-        offerPrice: 0,
+        offerPrice: 400,
         terms: "Valid for general service only.",
         code: "FREEAV"
     },
@@ -517,7 +523,7 @@ export const mockOffers = [
         shopId: 's2',
         location: 'Allinagaram',
         isSponsored: true,
-        image: 'https://images.unsplash.com/photo-1583391733958-e0267c7b3986?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/736x/2e/b2/d3/2eb2d39c0ab8e3dee43f0349423bfe8a.jpg',
         originalPrice: 25000,
         offerPrice: 18750,
         terms: "Valid on wedding collection only.",
@@ -551,7 +557,7 @@ export const mockOffers = [
         shopId: 's11',
         location: 'Theni Main',
         isSponsored: true,
-        image: 'https://images.unsplash.com/photo-1599317852936-7c09c91b8694?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/1200x/b9/4f/7d/b94f7d57a912027cd18c0ceb2a6ac3d5.jpg',
         originalPrice: 800,
         offerPrice: 720,
         code: "SWEET10"
@@ -599,7 +605,7 @@ export const mockOffers = [
         shopId: 's12',
         location: 'Theni Main',
         isSponsored: false,
-        image: 'https://images.unsplash.com/photo-1609592424367-17e997a6f23f?auto=format&fit=crop&q=80&w=800',
+        image: 'https://i.pinimg.com/736x/17/70/c9/1770c92514e301cceb962ddeb8c3cd3d.jpg',
         originalPrice: 1999,
         offerPrice: 1199,
         code: "POWER40"

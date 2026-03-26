@@ -59,7 +59,7 @@ const ShopsPage = () => {
                 const queryString = query.toString() ? `?${query.toString()}` : '';
 
                 // Fetch database items
-                const res = await axios.get(`${API_BASE_URL}/services${queryString}`);
+                const res = await axios.get(`${API_BASE_URL}/shops${queryString}`);
                 let fetchedData = Array.isArray(res.data) ? res.data : [];
 
                 // Normalize fields from backend to match frontend expectations
@@ -68,8 +68,8 @@ const ShopsPage = () => {
                     name: s.name || s.title || s.shopName || '',
                     category: s.category || s.type || '',
                     subCategory: s.subCategory || s.sub_category || s.subcategory || '',
-                    image: s.image || (s.images && s.images[0]) || s.imageUrl || s.photo || '',
-                    logo: s.logo || s.logoUrl || s.avatar || '',
+                    image: s.image || s.shopImage || s.coverImage || s.bannerImage || (s.images && s.images[0]) || s.imageUrl || s.photo || '',
+                    logo: s.logo || s.logoImage || s.profileImage || s.logoUrl || s.avatar || '',
                     contactNumber: s.contactNumber || s.phone || s.contact || s.contact_no || '',
                     address: s.address || s.location || '',
                     area: s.area || s.areaName || s.location || s.city || s.town || '',
@@ -139,7 +139,7 @@ const ShopsPage = () => {
     const secondHalf = displayData.slice(6);
 
     // Log the shops/display data before mapping so it's visible in browser console
-    console.log('shops (displayData):', displayData);
+    console.log('shops:', displayData);
 
     return (
         <div className="min-h-screen bg-slate-50 pb-12">
@@ -273,14 +273,14 @@ const ShopsPage = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fadeIn">
                                 {/* First Half */}
                                 {firstHalf.map(shop => (
-                                    <ShopCard key={shop.id} shop={shop} />
+                                    <ShopCard key={shop._id || shop.id} shop={shop} />
                                 ))}
 
 
 
                                 {/* Second Half */}
                                 {secondHalf.map(shop => (
-                                    <ShopCard key={shop.id} shop={shop} />
+                                    <ShopCard key={shop._id || shop.id} shop={shop} />
                                 ))}
                             </div>
                         ) : (

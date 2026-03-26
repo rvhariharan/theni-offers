@@ -28,7 +28,7 @@ export const api = {
 
     getShops: async (filters) => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/services${buildQuery(filters)}`);
+            const response = await axios.get(`${API_BASE_URL}/shops${buildQuery(filters)}`);
             return [...mockShops, ...response.data];
         } catch (error) {
             console.error('Error fetching services:', error);
@@ -43,7 +43,7 @@ export const api = {
             if (mockShop) return mockShop;
 
             // Otherwise check database
-            const response = await axios.get(`${API_BASE_URL}/services/${id}`);
+            const response = await axios.get(`${API_BASE_URL}/shops/${id}`);
             return response.data;
         } catch (error) {
             console.error('Error fetching service:', error);

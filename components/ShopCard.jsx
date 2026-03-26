@@ -51,7 +51,7 @@ const ShopCard = ({ shop }) => {
                 </div>
 
                 <Link
-                    to={`/shops/${shop.id}`}
+                    to={`/shops/${shop._id || shop.id}`}
                     className="group/btn flex items-center justify-center w-full bg-primary hover:bg-secondary text-white py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-1"
                 >
                     <span>Visit Store Profile</span>
