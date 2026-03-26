@@ -116,24 +116,12 @@ const Navbar = () => {
                 api.getOffers({ search: searchTerm })
             ]);
 
-            // Case 2: About Page OR Home Page -> Auto Navigate based on type priority
+            // Case 2: About Page OR Home Page -> Navigate to offers page with search term
             if (isAboutPage || isHomePage) {
-                if (jobs.length > 0) {
-                    navigate(`/jobs?search=${encodeURIComponent(searchTerm)}`);
-                    setIsSearchOpen(false);
-                    return;
-                }
-                if (shops.length > 0) {
-                    navigate(`/shops?search=${encodeURIComponent(searchTerm)}`);
-                    setIsSearchOpen(false);
-                    return;
-                }
-                if (offers.length > 0) {
-                    navigate(`/offers?search=${encodeURIComponent(searchTerm)}`);
-                    setIsSearchOpen(false);
-                    return;
-                }
-                // If nothing found, fall through to show "No results" in popup
+                navigate(`/offers?search=${encodeURIComponent(searchTerm)}`);
+                setIsSearchOpen(false);
+                setIsSearching(false);
+                return;
             }
 
             // Case 3: Other Pages (Fallback) -> Show Results in Popup

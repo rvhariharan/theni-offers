@@ -18,6 +18,12 @@ const CategoryFilter = ({
         if (scrollRef.current) {
             if (selectedCategory === 'All' || !selectedCategory) {
                 scrollRef.current.scrollLeft = 0;
+            } else {
+                // Find the active button and scroll it into view
+                const activeBtn = scrollRef.current.querySelector(`[data-category="${selectedCategory}"]`);
+                if (activeBtn) {
+                    activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                }
             }
         }
     }, [selectedCategory]);
@@ -61,6 +67,7 @@ const CategoryFilter = ({
                     {CATEGORIES.map((cat) => (
                         <button
                             key={cat}
+                            data-category={cat}
                             onClick={() => onCategorySelect(cat === 'All' ? '' : cat)}
                             className={`flex-shrink-0 px-5 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 snap-start border ${(cat === 'All' && !selectedCategory) || selectedCategory === cat
                                 ? 'bg-gray-900 text-white border-gray-900 shadow-md transform scale-105'

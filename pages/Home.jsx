@@ -11,35 +11,62 @@ import CategoryFilter from '../components/CategoryFilter';
 import {
     ArrowRight, ShoppingBag, Smartphone, Shirt, Utensils, Zap, Car,
     Heart, BookOpen, Diamond, Home as HomeIcon, Search, MapPin,
-    Sparkles, TrendingUp, Store, Briefcase, ChevronLeft, ChevronRight, ExternalLink, Crown
+    Sparkles, TrendingUp, Store, Briefcase, ChevronLeft, ChevronRight, ExternalLink, Crown,
+    Scissors, Wrench, Stethoscope, Camera, GraduationCap, PartyPopper, Scale,
+    Tractor, PenTool, Dumbbell, Building2, PawPrint, Globe, ShoppingCart, Sofa
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CATEGORIES, AREAS } from '../services/mockData';
+import { CATEGORIES, AREAS, mockOffers } from '../services/mockData';
 
 // Map icons to categories
 const getCategoryIcon = (category) => {
     switch (category) {
-        case 'Electronics': return <Smartphone size={24} />;
-        case 'Fashion': return <Shirt size={24} />;
         case 'Food & Dining': return <Utensils size={24} />;
-        case 'Services': return <Zap size={24} />;
-        case 'Automotive': return <Car size={24} />;
-        case 'Health': return <Heart size={24} />;
-        case 'Education': return <BookOpen size={24} />;
-        case 'Jewellery': return <Diamond size={24} />;
-        case 'Real Estate': return <HomeIcon size={24} />;
+        case 'Fashion & Apparel': return <Shirt size={24} />;
+        case 'Electronics & Appliances': return <Smartphone size={24} />;
+        case 'Grocery & Daily Needs': return <ShoppingCart size={24} />;
+        case 'Home & Living': return <Sofa size={24} />;
+        case 'Jewellery & Accessories': return <Diamond size={24} />;
+        case 'Beauty & Personal Care': return <Scissors size={24} />;
+        case 'Automobile (Sales & Services)': return <Car size={24} />;
+        case 'Healthcare & Wellness': return <Stethoscope size={24} />;
+        case 'Home Services': return <Wrench size={24} />;
+        case 'Creative, Media & Printing': return <Camera size={24} />;
+        case 'Education & Training': return <GraduationCap size={24} />;
+        case 'Events & Celebrations': return <PartyPopper size={24} />;
+        case 'Professional Services': return <Scale size={24} />;
+        case 'Agriculture & Industrial': return <Tractor size={24} />;
+        case 'Stationery, Books & Kids': return <PenTool size={24} />;
+        case 'Sports & Lifestyle': return <Dumbbell size={24} />;
+        case 'Real Estate & Construction': return <Building2 size={24} />;
+        case 'Pets & Animals': return <PawPrint size={24} />;
+        case 'Online & Digital Services': return <Globe size={24} />;
         default: return <ShoppingBag size={24} />;
     }
 };
 
 const getCategoryColor = (index) => {
     const colors = [
-        'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white',
+        'bg-orange-50 text-orange-600 group-hover:bg-orange-600 group-hover:text-white',
         'bg-rose-50 text-rose-600 group-hover:bg-rose-600 group-hover:text-white',
-        'bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white',
+        'bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white',
         'bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white',
+        'bg-teal-50 text-teal-600 group-hover:bg-teal-600 group-hover:text-white',
+        'bg-amber-50 text-amber-600 group-hover:bg-amber-600 group-hover:text-white',
+        'bg-pink-50 text-pink-600 group-hover:bg-pink-600 group-hover:text-white',
+        'bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white',
+        'bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white',
+        'bg-sky-50 text-sky-600 group-hover:bg-sky-600 group-hover:text-white',
         'bg-violet-50 text-violet-600 group-hover:bg-violet-600 group-hover:text-white',
         'bg-cyan-50 text-cyan-600 group-hover:bg-cyan-600 group-hover:text-white',
+        'bg-fuchsia-50 text-fuchsia-600 group-hover:bg-fuchsia-600 group-hover:text-white',
+        'bg-slate-100 text-slate-600 group-hover:bg-slate-600 group-hover:text-white',
+        'bg-lime-50 text-lime-600 group-hover:bg-lime-600 group-hover:text-white',
+        'bg-yellow-50 text-yellow-600 group-hover:bg-yellow-600 group-hover:text-white',
+        'bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white',
+        'bg-stone-100 text-stone-600 group-hover:bg-stone-600 group-hover:text-white',
+        'bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white',
+        'bg-zinc-100 text-zinc-600 group-hover:bg-zinc-600 group-hover:text-white',
     ];
     return colors[index % colors.length];
 };
@@ -64,6 +91,12 @@ const Home = () => {
     const [offerFilter, setOfferFilter] = useState('All');
     const [shopFilter, setShopFilter] = useState('All');
     const [jobFilter, setJobFilter] = useState('All');
+
+    // Home Search State
+    const [searchResults, setSearchResults] = useState([]);
+    const [isSearchActive, setIsSearchActive] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const searchResultsRef = React.useRef(null);
 
     const navigate = useNavigate();
 
@@ -98,10 +131,38 @@ const Home = () => {
 
     const handleHeroSearch = (e) => {
         e.preventDefault();
-        const params = new URLSearchParams();
-        if (heroSearch) params.set('search', heroSearch);
-        if (heroLocation) params.set('location', heroLocation);
-        navigate(`/offers?${params.toString()}`);
+        if (!heroSearch.trim() && !heroLocation) return;
+
+        const term = heroSearch.toLowerCase().trim();
+        let filtered = [...mockOffers];
+
+        if (term) {
+            filtered = filtered.filter(o =>
+                o.title.toLowerCase().includes(term) ||
+                o.description.toLowerCase().includes(term) ||
+                o.category.toLowerCase().includes(term)
+            );
+        }
+        if (heroLocation) {
+            filtered = filtered.filter(o => o.location === heroLocation);
+        }
+
+        setSearchResults(filtered);
+        setIsSearchActive(true);
+        setSearchQuery(heroSearch.trim());
+
+        // Scroll to results section
+        setTimeout(() => {
+            searchResultsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    };
+
+    const clearHomeSearch = () => {
+        setIsSearchActive(false);
+        setSearchResults([]);
+        setSearchQuery('');
+        setHeroSearch('');
+        setHeroLocation('');
     };
 
     const getFilteredOffers = () => {
@@ -390,6 +451,56 @@ const Home = () => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
 
+                {/* --- SEARCH RESULTS SECTION --- */}
+                {isSearchActive && (
+                    <section ref={searchResultsRef} className="animate-fadeIn">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                            <div>
+                                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">
+                                    Search Results
+                                    <span className="text-gray-400 font-medium text-lg ml-2">({searchResults.length})</span>
+                                </h2>
+                                {searchQuery && (
+                                    <p className="text-gray-500 font-medium mt-1">
+                                        Showing results for "<span className="text-primary font-bold">{searchQuery}</span>"
+                                        {heroLocation && <> in <span className="text-primary font-bold">{heroLocation}</span></>}
+                                    </p>
+                                )}
+                            </div>
+                            <button
+                                onClick={clearHomeSearch}
+                                className="text-sm font-bold text-red-500 hover:text-red-700 flex items-center gap-1.5 px-4 py-2 rounded-xl hover:bg-red-50 transition-colors border border-red-100"
+                            >
+                                ✕ Clear Search
+                            </button>
+                        </div>
+
+                        {searchResults.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                                {searchResults.map(offer => (
+                                    <OfferCard key={offer.id} offer={offer} onViewClick={setSelectedOffer} />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center justify-center py-24 bg-white rounded-3xl shadow-sm border border-gray-100 text-center px-4">
+                                <div className="bg-gray-50 p-6 rounded-full mb-4">
+                                    <Search size={40} className="text-gray-300" />
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-2">No offers found</h3>
+                                <p className="text-gray-500 max-w-sm mx-auto mb-8">
+                                    We couldn't find any offers matching your current filters. Try adjusting your search or category.
+                                </p>
+                                <button
+                                    onClick={clearHomeSearch}
+                                    className="bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all"
+                                >
+                                    Clear All Filters
+                                </button>
+                            </div>
+                        )}
+                    </section>
+                )}
+
                 {/* --- OFFERS SECTION --- */}
                 <section>
                     <SectionHeader
@@ -480,15 +591,15 @@ const Home = () => {
                             Explore by Category
                         </h2>
                     </div>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6">
-                        {CATEGORIES.slice(0, 10).map((cat, idx) => (
-                            <Link to={`/offers?category=${cat}`} key={cat} className="group flex flex-col items-center gap-3 p-4 rounded-3xl hover:bg-white hover:shadow-lg transition-all duration-300 border border-transparent hover:border-gray-100">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 md:gap-6">
+                        {CATEGORIES.map((cat, idx) => (
+                            <Link to={`/offers?category=${encodeURIComponent(cat)}`} key={cat} className="group flex flex-col items-center gap-3 p-4 rounded-3xl hover:bg-white hover:shadow-lg transition-all duration-300 border border-transparent hover:border-gray-100">
                                 <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${getCategoryColor(idx)} flex items-center justify-center transition-all duration-300 shadow-sm`}>
                                     <div className="transform transition-transform group-hover:scale-110 duration-300">
                                         {getCategoryIcon(cat)}
                                     </div>
                                 </div>
-                                <span className="text-xs md:text-sm font-bold text-gray-600 group-hover:text-gray-900 transition-colors text-center">{cat}</span>
+                                <span className="text-xs md:text-sm font-bold text-gray-600 group-hover:text-gray-900 transition-colors text-center leading-tight">{cat}</span>
                             </Link>
                         ))}
                     </div>
